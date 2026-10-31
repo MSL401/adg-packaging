@@ -1,0 +1,20 @@
+# Dependencies and build output
+node_modules/
+.next/
+next-env.d.ts
+*.tsbuildinfo
+
+# Database (lives in data/; never committed — the mini starts fresh from seed/)
+data/
+*.db
+*.db-wal
+*.db-shm
+uploads/
+
+# Config and secrets (.env.example is the template)
+.env*
+!.env.example
+
+# OS / editor
+.DS_Store
+Thumbs.db

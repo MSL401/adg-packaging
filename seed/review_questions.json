@@ -1,0 +1,1186 @@
+{
+  "version": "2026-10-29.9",
+  "sections": [
+    {
+      "id": "flags",
+      "title": "Which jobs need packaging bought ahead of time",
+      "intro": "The tool flags every contract RED (star foam box, 8–10 weeks), YELLOW (packaging we buy, 3–4 weeks) or GREEN (on the shelf).",
+      "short": "Buy-ahead flag"
+    },
+    {
+      "id": "steps",
+      "title": "How the tool explains the packing steps",
+      "intro": "The wording the tool prints on the packing sheet.",
+      "short": "How to pack it"
+    },
+    {
+      "id": "shop",
+      "title": "Your know-how",
+      "intro": "Open questions — anything a new packer should be told.",
+      "short": "Your know-how"
+    }
+  ],
+  "items": [
+    {
+      "id": "lead-times",
+      "section": "flags",
+      "kind": "question",
+      "appliesTo": "all",
+      "title": "How long packaging takes to arrive",
+      "question": "About how long does each of these take to arrive after we order it?",
+      "assumption": "Today the tool assumes 3–4 weeks for anything we buy, and 8–10 weeks for star foam boxes.",
+      "partChoices": [
+        "Under 1 week",
+        "1–2 weeks",
+        "3–4 weeks",
+        "5–7 weeks",
+        "8+ weeks",
+        "Don't know"
+      ],
+      "parts": [
+        {
+          "id": "p1",
+          "label": "MIL-spec clear poly bags — MIL-DTL-117, code BL (not regular commercial bags)"
+        },
+        {
+          "id": "p2",
+          "label": "MIL-spec foil moisture-barrier bags (codes BS, SF, SK)"
+        },
+        {
+          "id": "p3",
+          "label": "MIL-spec static-shielding bags (code B9)"
+        },
+        {
+          "id": "p4",
+          "label": "Weather-resistant boxes (code ED)"
+        },
+        {
+          "id": "p5",
+          "label": "Desiccant bags and humidity indicator cards"
+        },
+        {
+          "id": "p6",
+          "label": "Star foam boxes (codes NR / NW)"
+        },
+        {
+          "id": "p7",
+          "label": "Heat-treated wood: pallets, crates, cable reels"
+        }
+      ]
+    },
+    {
+      "id": "marking",
+      "section": "steps",
+      "kind": "question",
+      "appliesTo": "all",
+      "title": "The label on every bag and box (MIL-STD-129)",
+      "question": "Do our labels look like this sample — with every one of these lines?",
+      "assumption": "Today the tool only says \"Mark and label per MIL-STD-129.\"",
+      "details": [
+        "Every bag (unit pack), inner box and shipping box gets an ID label with these lines, in this order: NSN · CAGE · part number · item description · quantity and unit · contract number · preservation method + date packed · shelf life (if any) · serial numbers (if any).",
+        "A 2D bar code (PDF417) holding the NSN (and serial numbers / UIDs), titled \"ID DATA\". A Code 39 bar code is optional.",
+        "If the bag goes inside a box, label BOTH the bag and the box.",
+        "All capital letters, at least 0.09 inch tall. Black out old labels on reused boxes.",
+        "The shipping box also gets the weight (\"WT 14\" = 14 lb, rounded up) and a 4×6 Military Shipping Label (MSL) on the same side, right of center.",
+        "Method + date: \"M31-10/26\" means packed by Method 31 in October 2026."
+      ],
+      "sample": {
+        "heading": "Sample unit pack label",
+        "lines": [
+          "NSN 6150-01-022-6004",
+          "CAGE 5A910",
+          "PN 12345-678",
+          "CABLE ASSEMBLY, SPECIAL PURPOSE",
+          "1 EA",
+          "SPE4A626P5876",
+          "M31-10/26",
+          "[ 2D bar code — ID DATA ]"
+        ]
+      },
+      "choices": [
+        "Yes — ours look like this",
+        "Ours are similar but different (tell us below)",
+        "We don't label every bag and box",
+        "Not sure"
+      ]
+    },
+    {
+      "id": "dla-always",
+      "section": "steps",
+      "kind": "question",
+      "appliesTo": "all",
+      "title": "DLA rules on every shipment (RP001)",
+      "question": "Do we follow each of these rules on our DLA shipments today?",
+      "partChoices": [
+        "Yes, always",
+        "Sometimes",
+        "No",
+        "Didn't know about it"
+      ],
+      "parts": [
+        {
+          "id": "p1",
+          "label": "No loose fill — no packing peanuts, crumpled newspaper or shredded paper"
+        },
+        {
+          "id": "p2",
+          "label": "No yellow bags, yellow bubble wrap or other yellow packaging"
+        },
+        {
+          "id": "p3",
+          "label": "Wood (pallets, crates, cable reels) is heat-treated with the ISPM-15 \"bug stamp\" showing"
+        },
+        {
+          "id": "p4",
+          "label": "Pallets get the label on two sides that touch"
+        }
+      ]
+    },
+    {
+      "id": "opi-M-O",
+      "section": "steps",
+      "kind": "question",
+      "title": "OPI code — are we allowed to substitute?",
+      "question": "Do the OPI codes on our contracts mean this?",
+      "examples": [
+        {
+          "field": "opi",
+          "code": "M"
+        },
+        {
+          "field": "opi",
+          "code": "O"
+        }
+      ],
+      "partChoices": [
+        "That's right",
+        "Not quite — I'll explain",
+        "Not sure"
+      ],
+      "parts": [
+        {
+          "id": "M",
+          "label": "OPI M — pack exactly as coded: no swapping methods, materials or boxes"
+        },
+        {
+          "id": "O",
+          "label": "OPI O — equal-or-better DoD-approved materials allowed, but the same method, the unit pack no more than 1 inch bigger, and no extra cost"
+        },
+        {
+          "id": "E",
+          "label": "OPI E — only the swaps listed in the contract's special instructions"
+        },
+        {
+          "id": "A",
+          "label": "OPI A — follow the SPI or spec named in the contract"
+        }
+      ]
+    },
+    {
+      "id": "pack-code-U",
+      "section": "steps",
+      "kind": "question",
+      "title": "PACK CODE U — the outside shipping box",
+      "question": "For PACK CODE U, do we use a normal sturdy shipping box — and palletize when more than 25 boxes go to one address?",
+      "assumption": "Today the tool says \"Standard commercial box.\"",
+      "details": [
+        "U = the lowest packing level: any box UPS, FedEx, USPS or a freight carrier will accept, that gets it there undamaged at the lowest rate.",
+        "Hazardous material still follows DOT shipping rules.",
+        "If one shipment has more than 25 boxes of 1.5 cubic feet or less (no side over 40 inches), they must go on a pallet, a box pallet or in a container."
+      ],
+      "choices": [
+        "Yes — regular box, and a pallet over 25 boxes",
+        "Regular box, but we never palletize",
+        "We use a specific box — tell us which",
+        "Not sure"
+      ],
+      "examples": [
+        {
+          "field": "packCode",
+          "code": "U"
+        }
+      ]
+    },
+    {
+      "id": "icq-AAA",
+      "section": "steps",
+      "kind": "question",
+      "title": "INTRMDTE CONT QTY: AAA — how many per inner box",
+      "question": "When INTRMDTE CONT QTY says AAA, how do you decide how many bags go in each inner box?",
+      "assumption": "Today the tool says \"You choose how many per box,\" within these limits.",
+      "details": [
+        "No more than 100 unit packs per box.",
+        "No more than 40 lb.",
+        "No more than 1.5 cubic feet, with at least two sides 16 inches or less.",
+        "Odd or short counts go in the smallest box that fits.",
+        "Unit packs over 10 lb or 0.375 cubic feet don't get an inner box at all.",
+        "Example: 250 small bags → 100 + 100 + 50 in three boxes."
+      ],
+      "choices": [
+        "As many as fit, up to 100 bags / 40 lb / 1.5 cu ft",
+        "A round number per box (10, 25, 50…)",
+        "All the bags in one box, whatever the count",
+        "Whatever box we have on the shelf decides it",
+        "Not sure"
+      ],
+      "examples": [
+        {
+          "field": "intrmdteQty",
+          "code": "AAA"
+        }
+      ]
+    },
+    {
+      "id": "cushion-thickness",
+      "section": "steps",
+      "kind": "question",
+      "title": "CUSH/DUNN THKNESS — where the thickness goes",
+      "question": "When CUSH/DUNN THKNESS says C (3/4 inch), where does that 3/4 inch of cushioning go?",
+      "assumption": "Today the tool says \"at least 3/4 inch thick on every side that needs protection; cover every sharp edge.\"",
+      "details": [
+        "A = 1/4 in · B = 1/2 in · C = 3/4 in · D = 1 in · F = 1-1/2 in · H = 2 in",
+        "The box must then be sized: item size + 2 × cushion thickness in each direction."
+      ],
+      "choices": [
+        "All six sides of the item",
+        "Only the sides that need protection",
+        "Just around sharp edges and projections",
+        "Not sure"
+      ],
+      "examples": [
+        {
+          "field": "cushDunnThk",
+          "code": "A"
+        },
+        {
+          "field": "cushDunnThk",
+          "code": "C"
+        }
+      ]
+    },
+    {
+      "id": "cushion-NA",
+      "section": "steps",
+      "kind": "question",
+      "title": "CUSH/DUNN MAT: NA — the cushioning",
+      "question": "When CUSH/DUNN MAT says NA, what do we actually wrap the part in?",
+      "assumption": "Today the tool says \"Bubble wrap or foam.\" NA is a real code — it does not mean \"not applicable\".",
+      "details": [
+        "NA allows: bubble wrap (PPP-C-795), open-cell foam (A-A-3129) or polyethylene foam.",
+        "It must not be yellow, and no loose fill.",
+        "Static-sensitive parts need the pink anti-static versions instead (codes LT, NB)."
+      ],
+      "choices": [
+        "Bubble wrap",
+        "Foam (polyethylene or foam sheet)",
+        "Either — whatever's on the shelf",
+        "Not sure"
+      ],
+      "examples": [
+        {
+          "field": "cushDunnMat",
+          "code": "NA"
+        }
+      ]
+    },
+    {
+      "id": "method-10",
+      "section": "steps",
+      "kind": "question",
+      "title": "PRES MTHD 10 — no barrier bag",
+      "question": "For PRES MTHD 10, do we ship the part with no bag — just cushioned so it can't move in its box?",
+      "assumption": "Today the tool says \"No bag — just protect it.\"",
+      "details": [
+        "Method 10 = physical protection only: clean and dry, no oil, cushion / block / brace so it can't move.",
+        "No leak test and no seal test.",
+        "BUT if the UNIT CONT code is a bag (e.g. A1 or BL), the bag is still required."
+      ],
+      "choices": [
+        "Yes, no bag unless UNIT CONT names one",
+        "We bag them anyway",
+        "Depends — tell us when",
+        "Not sure"
+      ],
+      "examples": [
+        {
+          "field": "presMthd",
+          "code": "10"
+        }
+      ]
+    },
+    {
+      "id": "milspec-vs-commercial-bags",
+      "section": "flags",
+      "kind": "question",
+      "title": "MIL-spec bags vs. regular commercial bags (Uline)",
+      "question": "For each of these contract callouts: do we need a real MIL-spec bag, or is a regular commercial bag OK?",
+      "assumption": "The tool's reading of the standard: BL, A1 and Methods 31 / 32 need a real MIL-DTL-117 bag. A2, commercial-packaging (ASTM D3951) contracts and Method 10 with no bag named can use a regular commercial bag.",
+      "details": [
+        "BL = MIL-DTL-117 Type III, Class B, Style 2: a clear, waterproof, heat-sealable bag made from A-A-3174 or MIL-PRF-22191 Type III film. Its seals must pass a 50 oz strength test.",
+        "A regular commercial poly bag isn't made or certified to MIL-DTL-117, so it doesn't meet a BL callout — even if it looks the same.",
+        "When buying MIL-spec bags, ask the supplier for a certificate of conformance to MIL-DTL-117 Type III, Class B, Style 2.",
+        "OPI O (\"equal or better\") does not make a commercial bag OK: substitutes must be DoD-approved materials."
+      ],
+      "partChoices": [
+        "MIL-spec bag only",
+        "Regular commercial bag OK",
+        "Don't know"
+      ],
+      "parts": [
+        {
+          "id": "p1",
+          "label": "UNIT CONT: BL, or PRES MTHD 31 / 32"
+        },
+        {
+          "id": "p2",
+          "label": "UNIT CONT: A1 — \"any bag authorized by MIL-DTL-117\", taped or stapled"
+        },
+        {
+          "id": "p3",
+          "label": "UNIT CONT: A2 — \"any bag or sack used by the vendor\""
+        },
+        {
+          "id": "p4",
+          "label": "Commercial-packaging contracts (\"commercially packaged per ASTM D3951\")"
+        },
+        {
+          "id": "p5",
+          "label": "PRES MTHD 10 with no bag named in UNIT CONT"
+        }
+      ],
+      "examples": [
+        {
+          "field": "presMthd",
+          "code": "31"
+        },
+        {
+          "field": "presMthd",
+          "code": "32"
+        },
+        {
+          "field": "unitCont",
+          "code": "BL"
+        },
+        {
+          "field": "unitCont",
+          "code": "A1"
+        },
+        {
+          "field": "unitCont",
+          "code": "A2"
+        }
+      ],
+      "textMatch": "ASTM D3951",
+      "highlight": [
+        "unitCont",
+        "presMthd"
+      ],
+      "contracts": [
+        "SPE8E726P0060",
+        "SPE8E925V1782"
+      ]
+    },
+    {
+      "id": "bag-methods",
+      "section": "flags",
+      "kind": "question",
+      "title": "Bags we have to buy (Methods 31–45, GX)",
+      "question": "For each of these MIL-spec (MIL-DTL-117) bags: do we keep it on the shelf, or buy it for each job?",
+      "assumption": "The tool flags these YELLOW (buy, 3–4 weeks).",
+      "examples": [
+        {
+          "field": "presMthd",
+          "code": "31"
+        },
+        {
+          "field": "presMthd",
+          "code": "41"
+        }
+      ],
+      "partChoices": [
+        "On the shelf",
+        "Buy per job",
+        "Don't know"
+      ],
+      "parts": [
+        {
+          "id": "p1",
+          "label": "Clear poly bag — code BL (Methods 31, 32)"
+        },
+        {
+          "id": "p2",
+          "label": "Greaseproof-waterproof bag — codes BE, SD, B2 (Method 33)"
+        },
+        {
+          "id": "p3",
+          "label": "Foil moisture-barrier bag — codes BS, SE, B3, SF, SK (Methods 41, 42)"
+        },
+        {
+          "id": "p4",
+          "label": "Large floating foil bag — MIL-DTL-6060 (Method 43)"
+        },
+        {
+          "id": "p5",
+          "label": "Static-shielding bag — code B9 (GX)"
+        }
+      ]
+    },
+    {
+      "id": "weather-boxes",
+      "section": "flags",
+      "kind": "question",
+      "title": "Weather-resistant boxes",
+      "question": "For each kind of weather-resistant box: do we keep it on the shelf, or buy it for each job?",
+      "assumption": "The tool flags these YELLOW (buy, 3–4 weeks).",
+      "examples": [
+        {
+          "field": "intrmdteCont",
+          "code": "ED"
+        }
+      ],
+      "partChoices": [
+        "On the shelf",
+        "Buy per job",
+        "Don't know"
+      ],
+      "parts": [
+        {
+          "id": "p1",
+          "label": "ED — weather-resistant corrugated box (on most of our contracts)"
+        },
+        {
+          "id": "p2",
+          "label": "E9 / EE / NO — weather-resistant single- or double-wall box"
+        },
+        {
+          "id": "p3",
+          "label": "EF / EG — weather-resistant box with full lid"
+        },
+        {
+          "id": "p4",
+          "label": "EP — weather-resistant solid fiberboard box"
+        },
+        {
+          "id": "p5",
+          "label": "DR — weather-resistant triple-wall box"
+        }
+      ]
+    },
+    {
+      "id": "stock-boxes",
+      "section": "flags",
+      "kind": "question",
+      "title": "Regular cardboard boxes",
+      "question": "For each of these: is it always on the shelf in the sizes we need?",
+      "assumption": "The tool flags these GREEN (in stock).",
+      "examples": [
+        {
+          "field": "unitCont",
+          "code": "E5"
+        }
+      ],
+      "partChoices": [
+        "Always on the shelf",
+        "Sometimes have to order",
+        "Buy per job",
+        "Don't know"
+      ],
+      "parts": [
+        {
+          "id": "p1",
+          "label": "Regular cardboard boxes (E5, EC, D3, DO)"
+        },
+        {
+          "id": "p2",
+          "label": "Bubble wrap"
+        },
+        {
+          "id": "p3",
+          "label": "Foam"
+        },
+        {
+          "id": "p4",
+          "label": "Wrapping paper"
+        },
+        {
+          "id": "p5",
+          "label": "Tape"
+        },
+        {
+          "id": "p6",
+          "label": "Label stock"
+        }
+      ]
+    },
+    {
+      "id": "method-31",
+      "section": "steps",
+      "kind": "question",
+      "title": "PRES MTHD 31 — clear bag, heat sealed",
+      "question": "For PRES MTHD 31, do we seal the MIL-spec clear bag like this — and do we do the seal tests?",
+      "details": [
+        "Bag: a MIL-spec clear poly bag (MIL-DTL-117 Type III, Class B, Style 2 — code BL), not a regular commercial bag.",
+        "Cushion sharp edges first so nothing punches through the bag.",
+        "Squeeze out the air, then heat-seal — one continuous seal.",
+        "The standard requires a leak test and a seal-strength test on samples (a 1-inch strip of the seal must hold 50 oz for 5 minutes).",
+        "If the contract adds a box, the cushioning goes between the bag and the box."
+      ],
+      "choices": [
+        "Yes — including the tests",
+        "Yes, but we don't do the tests",
+        "We seal differently — tell us how",
+        "Not sure"
+      ],
+      "examples": [
+        {
+          "field": "presMthd",
+          "code": "31"
+        }
+      ]
+    },
+    {
+      "id": "commercial",
+      "section": "steps",
+      "kind": "question",
+      "title": "Commercial packaging contracts (ASTM D3951)",
+      "question": "On ASTM D3951 commercial-packaging contracts, do we pack the same as a normal commercial order — plus these DLA rules?",
+      "details": [
+        "These contracts have no packaging codes — just \"commercially packaged per ASTM D3951\".",
+        "DLA rules still apply: no loose fill, no yellow material, heat-treated wood, MIL-STD-129 labels.",
+        "If the item is hazardous, it must be packed per DLA rule IP025 instead."
+      ],
+      "choices": [
+        "Yes, same as commercial (plus the DLA rules)",
+        "We still do some MIL-style steps — tell us which",
+        "Not sure"
+      ],
+      "textMatch": "ASTM D3951"
+    },
+    {
+      "id": "bag-containers",
+      "section": "flags",
+      "kind": "question",
+      "title": "Bag codes in the UNIT CONT box",
+      "question": "When UNIT CONT names a bag code (BL, BS, B9…), do we ever use a different bag than the one named?",
+      "assumption": "The tool lists exactly the bag in the code and flags it YELLOW (buy).",
+      "details": [
+        "BL = clear poly bag · BS = foil moisture-barrier bag · SE = clear moisture-barrier bag · B9 = static-shielding bag · BE / BV = opaque greaseproof bag · A1 = any MIL-spec bag, taped or stapled shut",
+        "With OPI M, no substitutions are allowed. With OPI O, an equal-or-better bag is allowed."
+      ],
+      "choices": [
+        "Never — exactly that bag",
+        "Sometimes — tell us when",
+        "Not sure"
+      ],
+      "examples": [
+        {
+          "field": "unitCont",
+          "code": "BL"
+        }
+      ]
+    },
+    {
+      "id": "method-box-bag-box",
+      "section": "steps",
+      "kind": "question",
+      "title": "PRES MTHD 32 / 42 — box inside the bag",
+      "question": "For PRES MTHD 32 and 42 (box inside the bag), do we pack it like this?",
+      "details": [
+        "Method 32: item in a snug inner box → into a clear poly bag (BL) → heat seal.",
+        "Method 42: inner box → foil bag → heat seal → weather-resistant outer box.",
+        "Inner box corners must be blunted (folded or taped over) — inspectors check this.",
+        "Label both the bag and the outer box."
+      ],
+      "choices": [
+        "Yes, exactly like this",
+        "Yes, but we don't blunt the corners",
+        "We do it differently — tell us how",
+        "Not sure"
+      ],
+      "examples": [
+        {
+          "field": "presMthd",
+          "code": "32"
+        },
+        {
+          "field": "presMthd",
+          "code": "42"
+        }
+      ]
+    },
+    {
+      "id": "pack-code-Q",
+      "section": "steps",
+      "kind": "question",
+      "title": "PACK CODE Q — shipping box from the table",
+      "question": "For PACK CODE Q at PACKING LEVEL B, what shipping box do we use?",
+      "assumption": "The tool says: \"Box from the table for the level,\" and for Level B tells purchasing to buy a weather-resistant shipping box.",
+      "details": [
+        "Q = choose the shipping container from MIL-STD-2073 Table C-II for the packing level printed on the contract.",
+        "Level A = toughest (overseas, outdoor storage). Level B = weather-resistant domestic shipping."
+      ],
+      "choices": [
+        "Weather-resistant cardboard box",
+        "Wood or plywood box",
+        "Depends on the item — tell us",
+        "Not sure"
+      ],
+      "examples": [
+        {
+          "field": "packCode",
+          "code": "Q"
+        }
+      ]
+    },
+    {
+      "id": "icq-in-text",
+      "section": "steps",
+      "kind": "question",
+      "title": "Box count written in the special instructions",
+      "question": "When INTRMDTE CONT QTY says AAA but the special instructions say \"ICQ = 008\", do we put exactly 8 bags in each box?",
+      "assumption": "The tool uses the number from the instructions and shows a warning that it overrode the code.",
+      "details": [
+        "ICQ = intermediate container quantity = how many bags go in each inner box."
+      ],
+      "choices": [
+        "Yes — the instructions win",
+        "No — tell us why",
+        "Not sure"
+      ],
+      "textMatch": "\\bICQ\\s*[=:-]",
+      "highlight": [
+        "intrmdteQty"
+      ]
+    },
+    {
+      "id": "mil-prf-23199",
+      "section": "steps",
+      "kind": "assumption",
+      "title": "MIL-PRF-23199 contracts",
+      "question": "For MIL-PRF-23199 items (NSN 6150-01-022-6004), do we pack them like this?",
+      "details": [
+        "Clean and dry. Cap every opening with brightly colored caps.",
+        "Seal each item in a green 0.006-inch poly envelope, heat-sealed.",
+        "ID label inside the envelope, NSN bar code label outside.",
+        "Box it: one packing list inside, two outside.",
+        "Keep our written packaging procedure on file for the Government."
+      ],
+      "textMatch": "MIL-PRF-23199"
+    },
+    {
+      "id": "container-NR-NW",
+      "section": "flags",
+      "kind": "question",
+      "title": "Star foam boxes (NR / NW)",
+      "question": "Are UNIT CONT NR and NW what you call \"star packaging\" — a reusable box with star-shaped foam inserts?",
+      "assumption": "The tool flags NR and NW RED: 8–10 weeks, very expensive.",
+      "details": [
+        "NR = reusable box with vertical star foam inserts (PPP-B-1672 Type I).",
+        "NW = reusable box with horizontal star foam inserts (PPP-B-1672 Type IV)."
+      ],
+      "choices": [
+        "Yes, that's star packaging",
+        "Partly — tell us more",
+        "No",
+        "Not sure"
+      ],
+      "contracts": [
+        "SPE8E726P0179"
+      ],
+      "examples": [
+        {
+          "field": "unitCont",
+          "code": "NR"
+        },
+        {
+          "field": "unitCont",
+          "code": "NW"
+        }
+      ],
+      "highlight": [
+        "unitCont",
+        "intrmdteCont"
+      ]
+    },
+    {
+      "id": "zz-bag-within-box",
+      "section": "steps",
+      "kind": "question",
+      "title": "UNIT CONT: ZZ — \"BAG BL WITHIN BOX ED\"",
+      "question": "Does \"BAG BL WITHIN BOX ED\" mean: the part goes in a BL bag, then the bag goes in an ED box?",
+      "assumption": "The tool lists both containers but doesn't yet say which goes inside which.",
+      "choices": [
+        "Yes — part in bag, bag in box",
+        "No — the other way around",
+        "Not sure"
+      ],
+      "contracts": [
+        "SPE4A625T3051"
+      ],
+      "textMatch": "BAG BL WITHIN BOX|IN BAG BL",
+      "highlight": [
+        "unitCont"
+      ]
+    },
+    {
+      "id": "preservative",
+      "section": "steps",
+      "kind": "question",
+      "title": "PRESV MAT 49 — our own oil or grease",
+      "question": "When PRESV MAT says 49 (\"vendor's protective grease or oil\"), what do we put on the part — and what wraps it?",
+      "assumption": "The tool says: \"Our normal oil or grease coating,\" and warns that anything touching the oiled surface must be greaseproof.",
+      "details": [
+        "Any wrap touching an oiled surface must be greaseproof barrier paper (MIL-PRF-121) or aluminum foil."
+      ],
+      "examples": [
+        {
+          "field": "presvMat",
+          "code": "49"
+        }
+      ],
+      "parts": [
+        {
+          "id": "p1",
+          "label": "What goes on the part",
+          "choices": [
+            "Light oil (WD-40 type)",
+            "Preservative oil or grease",
+            "Nothing — the part ships dry",
+            "Don't know"
+          ]
+        },
+        {
+          "id": "p2",
+          "label": "What wraps it next",
+          "choices": [
+            "Greaseproof barrier paper (MIL-PRF-121)",
+            "Plain poly bag or wrap",
+            "Nothing extra",
+            "Don't know"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "container-NS-NV",
+      "section": "flags",
+      "kind": "question",
+      "title": "Reusable foam boxes (NS / NV)",
+      "question": "Are UNIT CONT NS and NV (reusable foam boxes) as slow and expensive as star packaging?",
+      "assumption": "The tool flags them RED, same as star packaging. Not on any of our contracts yet.",
+      "details": [
+        "NS = reusable box with folding foam inserts (PPP-B-1672 Type II).",
+        "NV = reusable box with telescoping foam inserts (PPP-B-1672 Type III)."
+      ],
+      "choices": [
+        "Yes — same as star (red)",
+        "No — bought packaging, 3–4 weeks (yellow)",
+        "Not sure"
+      ]
+    },
+    {
+      "id": "desiccant-methods",
+      "section": "flags",
+      "kind": "question",
+      "title": "Desiccant packs (Methods 50–55)",
+      "question": "For PRES MTHD 50–55 (desiccant packs): do we keep each of these on the shelf, or buy it per job?",
+      "assumption": "The tool flags desiccant methods YELLOW (buy, 3–4 weeks). Not on any of our contracts yet.",
+      "examples": [
+        {
+          "field": "presMthd",
+          "code": "51"
+        },
+        {
+          "field": "presMthd",
+          "code": "52"
+        },
+        {
+          "field": "presMthd",
+          "code": "53"
+        }
+      ],
+      "partChoices": [
+        "On the shelf",
+        "Buy per job",
+        "Don't know"
+      ],
+      "parts": [
+        {
+          "id": "p1",
+          "label": "Desiccant bags (MIL-D-3464)"
+        },
+        {
+          "id": "p2",
+          "label": "Humidity indicator cards (MS20003)"
+        },
+        {
+          "id": "p3",
+          "label": "Foil moisture-barrier bags"
+        }
+      ]
+    },
+    {
+      "id": "method-desiccant",
+      "section": "steps",
+      "kind": "assumption",
+      "title": "PRES MTHD 51–53 — desiccant pack steps",
+      "question": "For PRES MTHD 51–53, is this the right order for packing with desiccant?",
+      "details": [
+        "1. Use a bag about 5 inches bigger than normal — enough to reseal it twice after inspection.",
+        "2. Put the humidity indicator card where it can be read (behind the window, or just inside the seal).",
+        "3. Open the desiccant LAST, right before sealing. It must not touch the part or carry any weight.",
+        "4. Squeeze out the air and heat-seal. Leak test and seal test.",
+        "5. One item per pack. Mark the box \"PACKAGED WITH DESICCANT\"."
+      ],
+      "examples": [
+        {
+          "field": "presMthd",
+          "code": "51"
+        },
+        {
+          "field": "presMthd",
+          "code": "52"
+        },
+        {
+          "field": "presMthd",
+          "code": "53"
+        }
+      ]
+    },
+    {
+      "id": "bag-needs-box",
+      "section": "steps",
+      "kind": "question",
+      "title": "A sealed bag with no box named",
+      "question": "If a part is just in a sealed bag and the contract names no inner box, do we still put the bag in a box before the shipping carton?",
+      "assumption": "The tool warns: \"Bagged unit packs normally go in an intermediate box. The contract governs.\"",
+      "choices": [
+        "Yes, always",
+        "Only for fragile parts",
+        "No — the bag goes straight in the shipping box",
+        "Not sure"
+      ]
+    },
+    {
+      "id": "shop-stock",
+      "section": "shop",
+      "kind": "question",
+      "title": "What's on our shelf",
+      "question": "Which of these do we have in the shop today?",
+      "partChoices": [
+        "Yes, have it",
+        "No",
+        "Don't know"
+      ],
+      "parts": [
+        {
+          "id": "p1",
+          "label": "Heat sealer for MIL-spec bags"
+        },
+        {
+          "id": "p2",
+          "label": "Scale for weighing boxes (for the \"WT\" line)"
+        },
+        {
+          "id": "p3",
+          "label": "Label printer that can print 2D (PDF417) bar codes"
+        },
+        {
+          "id": "p4",
+          "label": "Bar code scanner to check labels"
+        },
+        {
+          "id": "p5",
+          "label": "Box-making or box-cutting tools for custom sizes"
+        },
+        {
+          "id": "p6",
+          "label": "Pallet stretch wrap and banding"
+        }
+      ]
+    },
+    {
+      "id": "shop-mistakes",
+      "section": "shop",
+      "kind": "question",
+      "title": "Common mistakes",
+      "question": "How often does each of these mistakes happen when packing DLA orders?",
+      "partChoices": [
+        "Happens often",
+        "Sometimes",
+        "Rarely or never",
+        "Don't know"
+      ],
+      "parts": [
+        {
+          "id": "p1",
+          "label": "A regular commercial bag used where a MIL-spec bag was required"
+        },
+        {
+          "id": "p2",
+          "label": "Heat seal not continuous, or bag not sealed at all"
+        },
+        {
+          "id": "p3",
+          "label": "Missing or wrong MIL-STD-129 label (bag or box)"
+        },
+        {
+          "id": "p4",
+          "label": "Wrong number of bags per inner box"
+        },
+        {
+          "id": "p5",
+          "label": "Sharp edges not cushioned — bag or box punctured"
+        },
+        {
+          "id": "p6",
+          "label": "Packing peanuts, newspaper or yellow material used"
+        },
+        {
+          "id": "p7",
+          "label": "Wood pallet or crate without the ISPM-15 heat-treat stamp"
+        },
+        {
+          "id": "p8",
+          "label": "Weather-resistant box needed but a regular box used"
+        },
+        {
+          "id": "p9",
+          "label": "Packing to how we did it last time instead of the current contract"
+        }
+      ],
+      "details": [
+        "Use \"+ Add a note\" for any other mistake we should warn about, or anything the depot has rejected."
+      ]
+    },
+    {
+      "id": "shop-suppliers",
+      "section": "shop",
+      "kind": "question",
+      "title": "Where we buy packaging",
+      "question": "Where do we usually buy each of these?",
+      "partChoices": [
+        "EDCO",
+        "Uline",
+        "Other — I'll name it",
+        "Don't know"
+      ],
+      "parts": [
+        {
+          "id": "p1",
+          "label": "Star foam boxes (NR / NW)"
+        },
+        {
+          "id": "p2",
+          "label": "MIL-spec clear poly bags (BL)"
+        },
+        {
+          "id": "p3",
+          "label": "MIL-spec foil moisture-barrier bags (BS / SF / SK)"
+        },
+        {
+          "id": "p4",
+          "label": "Weather-resistant boxes (ED)"
+        },
+        {
+          "id": "p5",
+          "label": "Desiccant and humidity indicator cards"
+        },
+        {
+          "id": "p6",
+          "label": "Heat-treated pallets and crates"
+        },
+        {
+          "id": "p7",
+          "label": "Labels and label stock"
+        }
+      ]
+    },
+    {
+      "id": "shop-tips",
+      "section": "shop",
+      "kind": "question",
+      "title": "Advice for a new packer",
+      "question": "What should a brand-new packer be told before packing their first DLA order?"
+    },
+    {
+      "id": "shop-photos",
+      "section": "shop",
+      "kind": "question",
+      "title": "Photos",
+      "question": "Which of these photos could you give us?",
+      "partChoices": [
+        "I have one",
+        "I can take one",
+        "Not needed"
+      ],
+      "parts": [
+        {
+          "id": "p1",
+          "label": "A sealed BL bag"
+        },
+        {
+          "id": "p2",
+          "label": "An ED box"
+        },
+        {
+          "id": "p3",
+          "label": "A star foam box"
+        },
+        {
+          "id": "p4",
+          "label": "A labeled unit pack"
+        },
+        {
+          "id": "p5",
+          "label": "A finished pallet"
+        }
+      ]
+    },
+    {
+      "id": "spi-AG00000600",
+      "section": "flags",
+      "kind": "question",
+      "askLast": true,
+      "title": "SPI AG00000600",
+      "question": "What kind of packaging does SPI AG00000600 call for? (NSN 5995-01-085-1665, cable assembly)",
+      "assumption": "Every contract that cites a Special Packaging Instruction (SPI) is flagged RED (star packaging) until someone confirms otherwise.",
+      "choices": [
+        "Star / custom foam box (red)",
+        "Other packaging we must buy (yellow)",
+        "Stuff we already stock (green)",
+        "Don't know — need to see the SPI"
+      ],
+      "contracts": [
+        "SPE4A624R0125",
+        "SPE4A624T29NF"
+      ]
+    },
+    {
+      "id": "spi-AM12001059",
+      "section": "flags",
+      "kind": "question",
+      "askLast": true,
+      "title": "SPI AM12001059",
+      "question": "What kind of packaging does SPI AM12001059 call for? (NSN 5995-01-040-8768, cable assembly, FMS shipment)",
+      "assumption": "Flagged RED (star packaging) until confirmed.",
+      "choices": [
+        "Star / custom foam box (red)",
+        "Other packaging we must buy (yellow)",
+        "Stuff we already stock (green)",
+        "Don't know — need to see the SPI"
+      ],
+      "contracts": [
+        "SPE4A625P4224",
+        "SPE4A626PAR19"
+      ]
+    },
+    {
+      "id": "spi-P10737994",
+      "section": "flags",
+      "kind": "question",
+      "askLast": true,
+      "title": "SPI P10737994 (older awards)",
+      "question": "Is the old SPI P10737994 the same star foam box as the newer SPI AK10737994? (NSN 6220-01-073-7994)",
+      "assumption": "Both are flagged RED. AK10737994 Rev B is confirmed star packaging.",
+      "choices": [
+        "Yes, same box",
+        "No — different packaging",
+        "Don't know"
+      ],
+      "contracts": [
+        "SPE4A624PW586",
+        "SPE4A626P5876"
+      ]
+    },
+    {
+      "id": "spi-AM10895488",
+      "section": "flags",
+      "kind": "question",
+      "askLast": true,
+      "title": "SPI AM10895488",
+      "question": "What kind of packaging does SPI AM10895488 call for? (NSN 5995-00-104-8873, cable assembly, FMS shipment)",
+      "assumption": "Flagged RED (star packaging) until confirmed.",
+      "choices": [
+        "Star / custom foam box (red)",
+        "Other packaging we must buy (yellow)",
+        "Stuff we already stock (green)",
+        "Don't know — need to see the SPI"
+      ],
+      "contracts": [
+        "SPE4A626PAAJ5"
+      ]
+    },
+    {
+      "id": "spi-AM10895489",
+      "section": "flags",
+      "kind": "question",
+      "askLast": true,
+      "title": "SPI AM10895489",
+      "question": "What kind of packaging does SPI AM10895489 call for? (NSN 5995-00-135-6507, cable assembly, FMS shipment)",
+      "assumption": "Flagged RED (star packaging) until confirmed.",
+      "choices": [
+        "Star / custom foam box (red)",
+        "Other packaging we must buy (yellow)",
+        "Stuff we already stock (green)",
+        "Don't know — need to see the SPI"
+      ],
+      "contracts": [
+        "SPE4A626V7046"
+      ]
+    },
+    {
+      "id": "spi-AM10936300",
+      "section": "flags",
+      "kind": "question",
+      "askLast": true,
+      "title": "SPI AM10936300",
+      "question": "What kind of packaging does SPI AM10936300 call for? (NSN 6150-00-967-3351)",
+      "assumption": "Flagged RED (star packaging) until confirmed.",
+      "choices": [
+        "Star / custom foam box (red)",
+        "Other packaging we must buy (yellow)",
+        "Stuff we already stock (green)",
+        "Don't know — need to see the SPI"
+      ],
+      "contracts": [
+        "SPE4A626PP336"
+      ]
+    },
+    {
+      "id": "spi-9384854",
+      "section": "flags",
+      "kind": "question",
+      "askLast": true,
+      "title": "SPI / drawing 9384854",
+      "question": "What kind of packaging does SPI / drawing 9384854 (dated 02/01/1989) call for? (NSN 5365-01-262-8671)",
+      "assumption": "Flagged RED (star packaging) until confirmed.",
+      "choices": [
+        "Star / custom foam box (red)",
+        "Other packaging we must buy (yellow)",
+        "Stuff we already stock (green)",
+        "Don't know — need to see the SPI"
+      ],
+      "contracts": [
+        "SPE4A724P7503"
+      ]
+    },
+    {
+      "id": "all-zz",
+      "section": "flags",
+      "kind": "question",
+      "askLast": true,
+      "title": "Every code is ZZ",
+      "question": "When every packaging code is ZZ and the contract points to an SPI or drawing, should we assume star packaging until we read it?",
+      "assumption": "The tool flags all-ZZ contracts RED until someone reads the referenced document.",
+      "choices": [
+        "Yes, assume star until we know",
+        "No — usually it's something simpler",
+        "Not sure"
+      ],
+      "contracts": [
+        "SPE4A626P5876"
+      ]
+    }
+  ]
+}

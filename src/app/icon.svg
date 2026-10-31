@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Cardboard box: browser-tab icon for the Packaging Decoder -->
+  <path d="M8 20 32 8l24 12v26L32 58 8 46z" fill="#c8894a"/>
+  <path d="M8 20 32 32l24-12L32 8z" fill="#e0a868"/>
+  <path d="M32 32v26L8 46V20z" fill="#b07436"/>
+  <path d="M20 14l24 12v8l-4-2v-6L16 16z" fill="#f4dcb4"/>
+  <path d="M8 20 32 8l24 12v26L32 58 8 46zM8 20l24 12 24-12M32 32v26" fill="none" stroke="#5a3a1a" stroke-width="2.5" stroke-linejoin="round"/>
+</svg>

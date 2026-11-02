@@ -11,6 +11,9 @@ data/
 *.db-shm
 uploads/
 
+# Service logs on the mini (launchd writes them into the app folder)
+*.log
+
 # Config and secrets (.env.example is the template)
 .env*
 !.env.example

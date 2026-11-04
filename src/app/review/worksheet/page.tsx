@@ -52,7 +52,7 @@ export default function WorksheetPage() {
         {items.map((q) => (
           <div key={q.id} className="print-break-avoid space-y-1 border-t-2 border-black pt-3">
             <p className="text-base font-bold">
-              <span className="mr-2 rounded bg-slate-800 px-1.5 font-mono text-white">Q{q.number}</span>
+              <span className="mr-2 rounded bg-slate-800 px-1.5 font-mono text-white">{q.tag}</span>
               {q.title}
             </p>
             <p className="text-xs text-slate-500">

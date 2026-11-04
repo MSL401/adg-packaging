@@ -12,7 +12,7 @@ const csvCell = (v: unknown) => {
 // GET → every feedback row ever saved, as a CSV for Excel (newest first, with the item text alongside)
 export const GET = handle(() => {
   requireAccess("view");
-  const questions = new Map(listQuestions().items.map((q) => [q.id, { no: `Q${q.number}`, text: q.question, parts: q.parts ?? [] }]));
+  const questions = new Map(listQuestions().items.map((q) => [q.id, { no: q.tag, text: q.question, parts: q.parts ?? [] }]));
   const codes = new Map(listCodeItems().map((c) => [c.key, { no: `C${c.number}`, text: `${c.dictionaryLabel} ${c.code}: ${c.title ?? ""}`, parts: [] }]));
   const header = ["Saved", "Reviewer", "#", "Item", "What it is", "Verdict", "Choice", "Stock/buy", "Should say / answer", "Comment"];
   // Multi-part questions get one row per line, so each answer sits in its own Excel row.

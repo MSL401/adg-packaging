@@ -35,6 +35,7 @@ export interface ReviewQuestion {
   highlight?: CodeField[];
   appliesTo?: "all"; // a rule that applies to every contract
   askLast?: boolean; // rare, hard ones (SPIs) go at the end whatever their count
+  round?: number; // 2 = follow-up round (its own tab, numbered R1, R2…, kept in file order)
 }
 
 /** One of our past contracts, shown next to a question so the reviewer sees exactly what we mean. */
@@ -49,6 +50,7 @@ export interface ContractEvidence {
 
 export interface NumberedQuestion extends ReviewQuestion {
   number: number;
+  tag: string; // "Q12" (round 1) or "R3" (round 2)
   usedIn: number; // how many of our contracts this question affects
   evidence: ContractEvidence[];
 }
@@ -198,12 +200,19 @@ export function listQuestions(): { sections: ReviewSection[]; items: NumberedQue
   const allDocs = new Set(records.map((r) => r.doc));
   // Most-common first, so the reviewer starts with what matters on the most contracts. Open questions follow, then the rare SPI ones.
   const band = (q: ReviewQuestion) => (q.askLast ? 2 : q.section === "shop" ? 1 : 0);
+  const usage = (q: ReviewQuestion, i: number) => ({ q, i, usedIn: q.appliesTo === "all" ? allDocs.size : contractsAffected(q, records) });
   const ranked = items
-    .map((q, i) => ({ q, i, usedIn: q.appliesTo === "all" ? allDocs.size : contractsAffected(q, records) }))
+    .filter((q) => (q.round ?? 1) === 1)
+    .map(usage)
     .sort((a, b) => band(a.q) - band(b.q) || b.usedIn - a.usedIn || a.i - b.i);
+  // Follow-up rounds stay in file order: each question builds on the one before.
+  const round2 = items.filter((q) => q.round === 2).map(usage);
   return {
     sections,
-    items: ranked.map(({ q, usedIn }, n) => ({ ...q, number: n + 1, usedIn, evidence: evidenceFor(q, records) })),
+    items: [
+      ...ranked.map(({ q, usedIn }, n) => ({ ...q, number: n + 1, tag: `Q${n + 1}`, usedIn, evidence: evidenceFor(q, records) })),
+      ...round2.map(({ q, usedIn }, n) => ({ ...q, number: n + 1, tag: `R${n + 1}`, usedIn, evidence: evidenceFor(q, records) })),
+    ],
   };
 }
 

@@ -1,5 +1,16 @@
 # Packaging Decoder: revisions
 
+## Rev 0.3 (2026-11-04)
+- Expert review Round 2: a new "Round 2: Follow-ups" tab on /review with 7 questions (R1–R7, kept in file order). It opens first while any are unanswered. Part 1 keeps Q1–Q40 and every saved answer. The questions:
+  - R1: BL and foil bags, shelf or buy (his two answers disagreed).
+  - R2: regular boxes, green or yellow.
+  - R3: the suppliers he marked "Other".
+  - R4: the label lines the DLA guide requires.
+  - R5: how we make the MSL.
+  - R6: anything in the guides we do differently.
+  - R7: his 5 photos.
+- Not asked again: NS/NV, desiccant (Methods 50–55) and OPI E are on none of our 271 past contracts; PRESV 49 is on one.
+
 ## Rev 0.2 (2026-11-04)
 
 Changes from the expert's review (Perry Stone answered all 40 questions and 69 codes on 2026-11-04).

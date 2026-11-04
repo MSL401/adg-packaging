@@ -218,3 +218,22 @@ Read the contract number from the PDF text instead.
 3. What the expert says about the two early flag questions, and about everything else in the review.
 4. Shop-specific materials (exact bag, box and foam part numbers we stock), so the 🛒 list can say "Uline S-1234" rather than "clear poly bag". Planned for later.
 5. MIL-STD-129 shipping labels: out of scope for v1 but in scope for the final product.
+
+## Round 2 and SPIs (owner, 2026-11-04)
+
+- **Round 2:** Perry answers on the "Round 2: Follow-ups" tab at /review (questions `r2-*` in seed/review_questions.json, `round: 2`). Apply his answers the same way as round 1:
+  - R1: change PURCHASE_CONTAINERS for BL, BS, SF and SK if he says they're on the shelf.
+  - R2: regular boxes yellow or green.
+  - R3: fill SUPPLIER.
+  - R4/R5: the label checklist.
+- **SPIs:** the owner dropped the SPI questions for contracts that already shipped. Only SPIs on contracts we still have to deliver get chased. The contracts in our history that carry an SPI, newest first:
+  - SPE4A724P7503 (9384854)
+  - SPE4A626V7046 (AM10895489)
+  - SPE4A626PP336 (AM10936300)
+  - SPE4A626PAAJ5 (AM10895488)
+  - SPE4A626PAR19 and SPE4A625P4224 (AM12001059)
+  - SPE4A624R0125 and SPE4A624T29NF (AG00000600)
+  - SPE4A624PW586 and SPE4A624T80B6 (P10737994)
+
+  Which of these are still open hasn't been checked yet; that needs the open-orders list.
+

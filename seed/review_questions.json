@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-04.1",
+  "version": "2026-11-04.2",
   "sections": [
     {
       "id": "flags",
@@ -18,6 +18,12 @@
       "title": "Your know-how",
       "intro": "Open questions — anything a new packer should be told.",
       "short": "Your know-how"
+    },
+    {
+      "id": "round2",
+      "title": "Round 2: follow-up questions",
+      "short": "Round 2",
+      "intro": "A few follow-ups on your first answers and on the two packaging guides you sent."
     }
   ],
   "items": [
@@ -1180,6 +1186,209 @@
       ],
       "contracts": [
         "SPE4A626P5876"
+      ]
+    },
+    {
+      "id": "r2-bags-stock",
+      "section": "round2",
+      "round": 2,
+      "kind": "question",
+      "title": "MIL-spec bags: shelf or buy?",
+      "question": "In Part 1 you said we keep BL and the foil bags on the shelf, but on their code cards you marked them \"we have to buy it\". Which is right?",
+      "assumption": "Today the tool treats both as bought for each job, so these jobs show YELLOW (3–4 weeks).",
+      "examples": [
+        {
+          "field": "unitCont",
+          "code": "BL"
+        },
+        {
+          "field": "unitCont",
+          "code": "BS"
+        },
+        {
+          "field": "unitCont",
+          "code": "SF"
+        },
+        {
+          "field": "unitCont",
+          "code": "SK"
+        }
+      ],
+      "partChoices": [
+        "On the shelf — enough for a normal order",
+        "On the shelf, but big orders need buying",
+        "We buy them for each job",
+        "Not sure"
+      ],
+      "parts": [
+        {
+          "id": "p1",
+          "label": "MIL-spec clear poly bags — code BL (Methods 31, 32)"
+        },
+        {
+          "id": "p2",
+          "label": "MIL-spec foil moisture-barrier bags — codes BS, SF, SK (Methods 41, 42)"
+        }
+      ]
+    },
+    {
+      "id": "r2-regular-boxes",
+      "section": "round2",
+      "round": 2,
+      "kind": "question",
+      "title": "Regular cardboard boxes",
+      "question": "You said regular boxes (E5, EC, D3, DO) \"sometimes have to be ordered\". When that happens, does it hold up shipping?",
+      "assumption": "Today the tool shows these as GREEN (on the shelf). They're on about half of our contracts, so turning them YELLOW would flag many more jobs.",
+      "examples": [
+        {
+          "field": "unitCont",
+          "code": "E5"
+        },
+        {
+          "field": "unitCont",
+          "code": "D3"
+        },
+        {
+          "field": "intrmdteCont",
+          "code": "EC"
+        },
+        {
+          "field": "unitCont",
+          "code": "DO"
+        }
+      ],
+      "choices": [
+        "Keep them green — we get them in a few days",
+        "Only odd sizes need ordering — keep them green",
+        "Flag them yellow — ordering really slows us down",
+        "Not sure"
+      ]
+    },
+    {
+      "id": "r2-suppliers",
+      "section": "round2",
+      "round": 2,
+      "kind": "question",
+      "title": "Who we buy from",
+      "question": "In Part 1 you picked \"Other\" for these. Who do we buy them from? (Name the company — and a phone or website if you have it.)",
+      "answerHint": "Star foam boxes (NR / NW): …\nWeather-resistant boxes (ED): …\nHeat-treated pallets and crates: …"
+    },
+    {
+      "id": "r2-label-lines",
+      "section": "round2",
+      "round": 2,
+      "kind": "question",
+      "title": "What's on our labels",
+      "question": "The DLA guide you sent lists what every unit-pack label must show (missing or wrong lines are the #1 reason DLA writes us up). Does our label show each of these?",
+      "appliesTo": "all",
+      "sample": {
+        "heading": "The guide's example",
+        "lines": [
+          "2910-00-456-7416",
+          "CAGE 57685",
+          "PN 341",
+          "CARBURETOR",
+          "1 EA",
+          "DAA625-03-C-1056",
+          "M31   11/26",
+          "[ NSN bar code (Code 39) ]"
+        ]
+      },
+      "partChoices": [
+        "Always",
+        "Sometimes",
+        "Never",
+        "Not sure"
+      ],
+      "parts": [
+        {
+          "id": "p1",
+          "label": "NSN (with dashes) and its bar code"
+        },
+        {
+          "id": "p2",
+          "label": "Our CAGE code"
+        },
+        {
+          "id": "p3",
+          "label": "Part number and item name"
+        },
+        {
+          "id": "p4",
+          "label": "Quantity and unit (e.g. 1 EA)"
+        },
+        {
+          "id": "p5",
+          "label": "Contract number"
+        },
+        {
+          "id": "p6",
+          "label": "Preservation method and date (e.g. M31 11/26)"
+        },
+        {
+          "id": "p7",
+          "label": "Gross weight on the shipping box (e.g. WT 12)"
+        }
+      ]
+    },
+    {
+      "id": "r2-msl",
+      "section": "round2",
+      "round": 2,
+      "kind": "question",
+      "title": "The Military Shipping Label (MSL)",
+      "question": "How do we make the Military Shipping Label (the address label with bar codes) for the shipping box?",
+      "appliesTo": "all",
+      "choices": [
+        "DLA's Vendor Shipment Module (VSM)",
+        "WAWF / PIEE",
+        "Our own shipping software — tell us which",
+        "Someone else does it — tell us who",
+        "Not sure"
+      ]
+    },
+    {
+      "id": "r2-guides",
+      "section": "round2",
+      "round": 2,
+      "kind": "question",
+      "title": "The pictures from your guides",
+      "question": "We added the diagrams from the two guides you sent to the packing steps (\"📷 See the picture\"). Is there anything in those guides that we do differently in our shop?",
+      "answerHint": "For example: \"We don't use a humidity card on Method 51\" — or \"No, that's how we do it.\""
+    },
+    {
+      "id": "r2-photos",
+      "section": "round2",
+      "round": 2,
+      "kind": "question",
+      "title": "Your photos",
+      "question": "You said you have photos of these. Could you add them here with the 📷 Add photo button (a phone photo is fine)?",
+      "partChoices": [
+        "Added it",
+        "I'll send it another way",
+        "Don't have it after all"
+      ],
+      "parts": [
+        {
+          "id": "p1",
+          "label": "A sealed BL bag"
+        },
+        {
+          "id": "p2",
+          "label": "An ED box"
+        },
+        {
+          "id": "p3",
+          "label": "A star foam box"
+        },
+        {
+          "id": "p4",
+          "label": "A labeled unit pack"
+        },
+        {
+          "id": "p5",
+          "label": "A finished pallet"
+        }
       ]
     }
   ]

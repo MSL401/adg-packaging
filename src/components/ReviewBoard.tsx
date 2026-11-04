@@ -27,7 +27,7 @@ export function ReviewBoard() {
   const [data, setData] = useState<Data | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [name, setName] = useState("");
-  const [tab, setTab] = useState<"questions" | "codes" | "answers">("questions");
+  const [tab, setTab] = useState<"round2" | "questions" | "codes" | "answers" | null>(null);
 
   useEffect(() => {
     try {
@@ -65,12 +65,20 @@ export function ReviewBoard() {
   if (error) return <p className="rounded-xl bg-red-50 p-4 text-xl text-red-700">{error}</p>;
   if (!data) return <p className="text-xl text-slate-500">Loading…</p>;
 
-  const qDone = data.questions.items.filter((q) => latest.has(fbKey("question", q.id))).length;
+  const round1 = data.questions.items.filter((q) => (q.round ?? 1) === 1);
+  const round2 = data.questions.items.filter((q) => q.round === 2);
+  const qDone = round1.filter((q) => latest.has(fbKey("question", q.id))).length;
+  const rDone = round2.filter((q) => latest.has(fbKey("question", q.id))).length;
+  const nextR = round2.find((q) => !latest.has(fbKey("question", q.id)));
+  // Open on Round 2 while it has unanswered questions; otherwise on Part 1.
+  const shown = tab ?? (nextR ? "round2" : "questions");
   const usedCodes = data.codes.filter((c) => c.usedIn > 0);
   const cDone = usedCodes.filter((c) => latest.has(fbKey("code", c.key))).length;
-  const nextQ = data.questions.items.find((q) => !latest.has(fbKey("question", q.id)));
+  const nextQ = round1.find((q) => !latest.has(fbKey("question", q.id)));
   const nextC = usedCodes.find((c) => !latest.has(fbKey("code", c.key)));
-  const nextUnanswered = tab === "questions" ? nextQ && anchorId("question", nextQ.id) : nextC && anchorId("code", nextC.key);
+  const nextUnanswered =
+    shown === "round2" ? nextR && anchorId("question", nextR.id) : shown === "questions" ? nextQ && anchorId("question", nextQ.id) : nextC && anchorId("code", nextC.key);
+  const [done, total] = shown === "round2" ? [rDone, round2.length] : shown === "questions" ? [qDone, round1.length] : [cDone, usedCodes.length];
 
   return (
     <div className="space-y-6">
@@ -102,7 +110,8 @@ export function ReviewBoard() {
         <div className="flex flex-wrap items-center gap-3">
           {(
             [
-              ["questions", `Part 1: Questions`, qDone, data.questions.items.length],
+              ...(round2.length ? ([["round2", `Round 2: Follow-ups`, rDone, round2.length]] as const) : []),
+              ["questions", `Part 1: Questions`, qDone, round1.length],
               ["codes", `Part 2: Code meanings`, cDone, usedCodes.length],
               ["answers", `Your answers`, data.feedback.length, null],
             ] as const
@@ -111,13 +120,13 @@ export function ReviewBoard() {
               key={k}
               onClick={() => setTab(k)}
               className={`rounded-xl border-2 px-4 py-2 text-lg font-semibold ${
-                tab === k ? "border-slate-800 bg-slate-800 text-white" : "border-slate-300 bg-white text-slate-800 hover:bg-slate-100"
+                shown === k ? "border-slate-800 bg-slate-800 text-white" : "border-slate-300 bg-white text-slate-800 hover:bg-slate-100"
               }`}
             >
               {label} <span className="font-normal opacity-80">{total === null ? `(${done})` : `${done} / ${total}`}</span>
             </button>
           ))}
-          {tab !== "answers" && nextUnanswered && (
+          {shown !== "answers" && nextUnanswered && (
             <button
               type="button"
               onClick={() => document.getElementById(nextUnanswered)?.scrollIntoView({ behavior: "smooth", block: "start" })}
@@ -126,23 +135,25 @@ export function ReviewBoard() {
               ⬇ Next unanswered
             </button>
           )}
-          {tab !== "answers" && !nextUnanswered && <span className="ml-auto text-lg font-bold text-emerald-700">✓ All done in this part — thank you!</span>}
+          {shown !== "answers" && !nextUnanswered && <span className="ml-auto text-lg font-bold text-emerald-700">✓ All done in this part — thank you!</span>}
         </div>
-        {tab !== "answers" && (
+        {shown !== "answers" && (
           <div className="h-2 overflow-hidden rounded-full bg-slate-200" aria-label="Progress">
             <div
               className="h-full rounded-full bg-emerald-600 transition-all"
-              style={{ width: `${Math.round((100 * (tab === "questions" ? qDone : cDone)) / Math.max(1, tab === "questions" ? data.questions.items.length : usedCodes.length))}%` }}
+              style={{ width: `${Math.round((100 * done) / Math.max(1, total))}%` }}
             />
           </div>
         )}
       </div>
 
-      {tab === "questions" && <QuestionList data={data} latest={latest} reviewer={name} onSaved={onSaved} photoKit={photoKit} />}
+      {shown === "round2" && <Round2List items={round2} latest={latest} reviewer={name} onSaved={onSaved} photoKit={photoKit} />}
 
-      {tab === "codes" && <CodeList codes={data.codes} latest={latest} reviewer={name} onSaved={onSaved} photoKit={photoKit} />}
+      {shown === "questions" && <QuestionList data={data} items={round1} latest={latest} reviewer={name} onSaved={onSaved} photoKit={photoKit} />}
 
-      {tab === "answers" && <Answers data={data} />}
+      {shown === "codes" && <CodeList codes={data.codes} latest={latest} reviewer={name} onSaved={onSaved} photoKit={photoKit} />}
+
+      {shown === "answers" && <Answers data={data} />}
     </div>
   );
 }
@@ -522,8 +533,34 @@ function FormFooter({ disabled, hint = "Pick an answer above first", busy, onSav
 }
 
 /** Questions arrive ranked (most contracts first, open questions next, SPIs last); a heading marks where each of the later groups starts. */
-function QuestionList({ data, latest, reviewer, onSaved, photoKit }: {
+function Round2List({ items, latest, reviewer, onSaved, photoKit }: {
+  items: NumberedQuestion[];
+  latest: Map<string, Feedback>;
+  reviewer: string;
+  onSaved: (f: Feedback) => void;
+  photoKit: PhotoKit;
+}) {
+  return (
+    <div className="space-y-5">
+      <div className="space-y-2">
+        <h2 className="text-3xl font-bold">Round 2: Follow-up questions</h2>
+        <p className="text-xl text-slate-700">
+          Thank you for finishing the first round — we already changed the tool based on your answers and the two guides you sent. These {items.length} questions
+          follow up on a few answers that didn&rsquo;t quite agree, and on things the guides raised. &ldquo;Not sure&rdquo; is still a good answer.
+        </p>
+      </div>
+      {items.map((q, i) => (
+        <div key={q.id} id={anchorId("question", q.id)} className={`scroll-mt-40 ${i > 0 ? "border-t-4 border-black pt-6" : ""}`}>
+          <QuestionCard q={q} last={latest.get(fbKey("question", q.id))} reviewer={reviewer} onSaved={onSaved} photoKit={photoKit} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function QuestionList({ data, items, latest, reviewer, onSaved, photoKit }: {
   data: Data;
+  items: NumberedQuestion[];
   latest: Map<string, Feedback>;
   reviewer: string;
   onSaved: (f: Feedback) => void;
@@ -544,8 +581,8 @@ function QuestionList({ data, latest, reviewer, onSaved, photoKit }: {
           <b className="text-emerald-700">GREEN</b> = we have everything on the shelf.
         </p>
       </div>
-      {data.questions.items.map((q, i) => {
-        const prev = data.questions.items[i - 1];
+      {items.map((q, i) => {
+        const prev = items[i - 1];
         const heading = prev && group(prev) !== group(q) ? group(q) : null;
         return (
           <div key={q.id} className={`space-y-5 ${i > 0 ? "border-t-4 border-black pt-6" : ""}`}>
@@ -618,14 +655,14 @@ function QuestionCard({ q, last, reviewer, onSaved, photoKit }: {
 
   if (last && !editing)
     return (
-      <AnsweredRow number={`Q${q.number}`} title={`${q.title} — ${q.question}`} summary={summarize(last, q.parts)} photos={photos.length} onEdit={() => setEditing(true)} />
+      <AnsweredRow number={q.tag} title={`${q.title} — ${q.question}`} summary={summarize(last, q.parts)} photos={photos.length} onEdit={() => setEditing(true)} />
     );
 
   return (
     // Reads straight down: title → contract (one line each, expandable) → the question with its specifics → the answers.
     <div className="space-y-4 rounded-2xl border-2 border-slate-300 bg-white p-5 shadow-sm">
       <div className="flex flex-wrap items-center gap-3">
-        <NumberBadge n={`Q${q.number}`} />
+        <NumberBadge n={q.tag} />
         <h3 className="text-2xl font-bold leading-snug">{q.title}</h3>
         {q.usedIn > 0 && (
           <span className="rounded-full bg-amber-100 px-4 py-1 text-lg font-bold text-amber-900">
@@ -878,7 +915,7 @@ function CodeCard({ c, last, reviewer, onSaved, photoKit }: {
 }
 
 function Answers({ data }: { data: Data }) {
-  const questions = new Map(data.questions.items.map((q) => [q.id, `Q${q.number}. ${q.question}`]));
+  const questions = new Map(data.questions.items.map((q) => [q.id, `${q.tag}. ${q.question}`]));
   const codes = new Map(data.codes.map((c) => [c.key, `C${c.number}. Code ${c.code} — ${c.dictionaryLabel}`]));
   const parts = new Map(data.questions.items.map((q) => [q.id, q.parts]));
   if (!data.feedback.length) return <p className="text-xl text-slate-500">No answers yet.</p>;

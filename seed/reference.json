@@ -41,7 +41,7 @@
      "status": "current",
      "milstd_table": "J-II",
      "chg4_page": 173,
-     "short_label": "Clean and dry it"
+     "short_label": "Clean and dry the item by any method that will not damage it (wipe, degrease, air-dry, etc.) before you preserve or bag it"
     },
     {
      "code": "3",
@@ -405,7 +405,7 @@
      "status": "current",
      "milstd_table": "J-V",
      "chg4_page": 180,
-     "short_label": "Block and brace as needed"
+     "short_label": "Use whatever cushioning, blocking or bracing is needed so the item cannot move or be damaged; no specific material is mandated"
     },
     {
      "code": "AE",
@@ -579,7 +579,7 @@
      "status": "current",
      "milstd_table": "J-V",
      "chg4_page": 180,
-     "short_label": "Water-resistant paper padding"
+     "short_label": "A-A-1898, Grade II, water resistant cellulosic cushioning"
     },
     {
      "code": "BH",
@@ -1437,7 +1437,7 @@
      "status": "current",
      "milstd_table": "J-V",
      "chg4_page": 180,
-     "short_label": "Polypropylene foam"
+     "short_label": "PPP-C-1797, polypropylene foam cushioning"
     },
     {
      "code": "GU",
@@ -2252,7 +2252,7 @@
      "status": "current",
      "milstd_table": "J-V",
      "chg4_page": 181,
-     "short_label": "Anti-static foam"
+     "short_label": "A-A-3129, Type I, Grade B, static dissipative open cell plastic cushioning"
     },
     {
      "code": "NC",
@@ -2554,7 +2554,7 @@
      "code": "N",
      "title": "3-1/4 inches thick",
      "description": "3-1/4 inches thick",
-     "plain_english": "Cushioning must be at least 3-1/4 inches thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 3-1/4 inches thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2566,7 +2566,7 @@
      "code": "A",
      "title": "1/4 inch thick",
      "description": "1/4 inch thick",
-     "plain_english": "Cushioning must be at least 1/4 inch thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 1/4 inch thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2578,7 +2578,7 @@
      "code": "P",
      "title": "3-1/2 inches thick",
      "description": "3-1/2 inches thick",
-     "plain_english": "Cushioning must be at least 3-1/2 inches thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 3-1/2 inches thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2590,7 +2590,7 @@
      "code": "B",
      "title": "1/2 inch thick",
      "description": "1/2 inch thick",
-     "plain_english": "Cushioning must be at least 1/2 inch thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 1/2 inch thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2602,7 +2602,7 @@
      "code": "Q",
      "title": "3-3/4 inches thick",
      "description": "3-3/4 inches thick",
-     "plain_english": "Cushioning must be at least 3-3/4 inches thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 3-3/4 inches thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2614,7 +2614,7 @@
      "code": "C",
      "title": "3/4 inch thick",
      "description": "3/4 inch thick",
-     "plain_english": "Cushioning must be at least 3/4 inch thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 3/4 inch thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2626,7 +2626,7 @@
      "code": "R",
      "title": "4 inches thick",
      "description": "4 inches thick",
-     "plain_english": "Cushioning must be at least 4 inches thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 4 inches thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2638,7 +2638,7 @@
      "code": "D",
      "title": "1 inch thick",
      "description": "1 inch thick",
-     "plain_english": "Cushioning must be at least 1 inch thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 1 inch thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2650,7 +2650,7 @@
      "code": "S",
      "title": "4-1/4 inches thick",
      "description": "4-1/4 inches thick",
-     "plain_english": "Cushioning must be at least 4-1/4 inches thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 4-1/4 inches thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2662,7 +2662,7 @@
      "code": "E",
      "title": "1-1/4 inches thick",
      "description": "1-1/4 inches thick",
-     "plain_english": "Cushioning must be at least 1-1/4 inches thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 1-1/4 inches thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2674,7 +2674,7 @@
      "code": "T",
      "title": "4-1/2 inches thick",
      "description": "4-1/2 inches thick",
-     "plain_english": "Cushioning must be at least 4-1/2 inches thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 4-1/2 inches thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2686,7 +2686,7 @@
      "code": "F",
      "title": "1-1/2 inches thick",
      "description": "1-1/2 inches thick",
-     "plain_english": "Cushioning must be at least 1-1/2 inches thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 1-1/2 inches thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2698,7 +2698,7 @@
      "code": "U",
      "title": "4-3/4 inches thick",
      "description": "4-3/4 inches thick",
-     "plain_english": "Cushioning must be at least 4-3/4 inches thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 4-3/4 inches thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2710,7 +2710,7 @@
      "code": "G",
      "title": "1-3/4 inches thick",
      "description": "1-3/4 inches thick",
-     "plain_english": "Cushioning must be at least 1-3/4 inches thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 1-3/4 inches thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2722,7 +2722,7 @@
      "code": "V",
      "title": "5 inches thick",
      "description": "5 inches thick",
-     "plain_english": "Cushioning must be at least 5 inches thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 5 inches thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2734,7 +2734,7 @@
      "code": "H",
      "title": "2 inches thick",
      "description": "2 inches thick",
-     "plain_english": "Cushioning must be at least 2 inches thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 2 inches thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2746,7 +2746,7 @@
      "code": "W",
      "title": "5-1/4 inches thick",
      "description": "5-1/4 inches thick",
-     "plain_english": "Cushioning must be at least 5-1/4 inches thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 5-1/4 inches thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2758,7 +2758,7 @@
      "code": "J",
      "title": "2-1/4 inches thick",
      "description": "2-1/4 inches thick",
-     "plain_english": "Cushioning must be at least 2-1/4 inches thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 2-1/4 inches thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2782,7 +2782,7 @@
      "code": "K",
      "title": "2-1/2 inches thick",
      "description": "2-1/2 inches thick",
-     "plain_english": "Cushioning must be at least 2-1/2 inches thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 2-1/2 inches thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2806,7 +2806,7 @@
      "code": "L",
      "title": "2-3/4 inches thick",
      "description": "2-3/4 inches thick",
-     "plain_english": "Cushioning must be at least 2-3/4 inches thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 2-3/4 inches thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2830,7 +2830,7 @@
      "code": "M",
      "title": "3 inches thick",
      "description": "3 inches thick",
-     "plain_english": "Cushioning must be at least 3 inches thick on all sides that need protection (minimum; you may add more as dunnage).",
+     "plain_english": "Cushioning must be at least 3 inches thick on all six sides of the item (minimum; you may add more as dunnage).",
      "spec_refs": [],
      "notes": null,
      "status": "current",
@@ -2854,7 +2854,7 @@
      "status": "current",
      "milstd_table": "J-I",
      "chg4_page": 35,
-     "short_label": "No bag — just protect it"
+     "short_label": "Physical protection"
     },
     {
      "code": "11",
@@ -2938,7 +2938,7 @@
      "status": "current",
      "milstd_table": "J-I",
      "chg4_page": 35,
-     "short_label": "Oil/grease coat + greaseproof wrap"
+     "short_label": "Coat the item with the preservative named in PRESV MAT, then wrap it snugly in MIL-PRF-121 greaseproof barrier (or aluminum foil) and pad any sharp edges"
     },
     {
      "code": "21",
@@ -4449,7 +4449,7 @@
      "status": "current",
      "milstd_table": "J-Ia",
      "chg4_page": 169,
-     "short_label": "Plug/seal openings, then Method 20"
+     "short_label": "Plug or seal all openings, then preserve per Method 20 (preservative coating plus greaseproof wrap)"
     },
     {
      "code": "C1",
@@ -5435,7 +5435,7 @@
      "status": "current",
      "milstd_table": "J-Ia",
      "chg4_page": 172,
-     "short_label": "Static-shielding bag (ESD)"
+     "short_label": "ESD-sensitive item, packed under an approved ESD control program: static-shielding wrap AND anti-static cushioning (or a MIL-DTL-81997 cushioned ESD pouch), heat-sealed in a MIL-DTL-117 Type I Class F bag, with ESD caution labels"
     },
     {
      "code": "GZ",
@@ -6728,7 +6728,7 @@
      "status": "current",
      "milstd_table": "J-III",
      "chg4_page": 174,
-     "short_label": "Our normal oil or grease coating"
+     "short_label": "Use the manufacturer's own protective grease or oil coating; no MIL-spec preservative is required"
     },
     {
      "code": "50",
@@ -7068,7 +7068,7 @@
      "status": "current",
      "milstd_table": null,
      "chg4_page": 166,
-     "short_label": "You choose how many per box"
+     "short_label": "You decide how many unit packs go in each intermediate box, staying within 100 packs, 40 lb and 1.5 cu ft (two sides no more than 16 in.)"
     },
     {
      "code": "XXX",
@@ -7134,7 +7134,7 @@
      "status": "current",
      "milstd_table": "J-X",
      "chg4_page": 199,
-     "short_label": "FRAGILE"
+     "short_label": "Apply FRAGILE markings/labels to the container per MIL-STD-129"
     },
     {
      "code": "24",
@@ -7314,7 +7314,7 @@
      "status": "current",
      "milstd_table": "J-X",
      "chg4_page": 199,
-     "short_label": "Shelf life label (Type I)"
+     "short_label": "Apply Type I (non-extendable) shelf-life markings (dates) per MIL-STD-129"
     },
     {
      "code": "09",
@@ -7338,7 +7338,7 @@
      "status": "current",
      "milstd_table": "J-X",
      "chg4_page": 199,
-     "short_label": "Shelf life label (Type II)"
+     "short_label": "Apply Type II (extendable) shelf-life markings (manufacture/inspect-test dates) per MIL-STD-129"
     },
     {
      "code": "10",
@@ -7436,7 +7436,7 @@
      "status": "current",
      "milstd_table": "J-X",
      "chg4_page": 199,
-     "short_label": "ESD sensitive label"
+     "short_label": "Apply ESD-sensitive caution labels/markings per MIL-STD-129"
     },
     {
      "code": "14",
@@ -7715,7 +7715,7 @@
      "status": "current",
      "milstd_table": "J-VII",
      "chg4_page": 185,
-     "short_label": "MIL-spec bag, taped or stapled"
+     "short_label": "Use a bag made of MIL-P-130 material, or any MIL-DTL-117 bag; close it with staples or tape"
     },
     {
      "code": "A2",
@@ -8021,7 +8021,7 @@
      "status": "current",
      "milstd_table": "J-VII",
      "chg4_page": 185,
-     "short_label": "MIL-spec bag (MIL-DTL-117)"
+     "short_label": "MIL-DTL-117, bag"
     },
     {
      "code": "BE",
@@ -8035,7 +8035,7 @@
      "status": "current",
      "milstd_table": "J-VII",
      "chg4_page": 185,
-     "short_label": "Greaseproof bag, opaque"
+     "short_label": "MIL-DTL-117, Type II, Class C, Style 1, medium duty, waterproof, greaseproof, opaque bag"
     },
     {
      "code": "BG",
@@ -8148,7 +8148,7 @@
      "status": "current",
      "milstd_table": "J-VII",
      "chg4_page": 185,
-     "short_label": "Foil moisture-barrier bag"
+     "short_label": "MIL-DTL-117, Type I, Class E, Style 1, heavy duty, watervaporproof, greaseproof, opaque bag"
     },
     {
      "code": "BT",
@@ -10924,7 +10924,7 @@
      "status": "current",
      "milstd_table": "J-IV",
      "chg4_page": 178,
-     "short_label": "2-mil plastic sheet"
+     "short_label": "A-A-3174, plastic sheet, polyolefin, 2 mil"
     },
     {
      "code": "CB",
@@ -11078,7 +11078,7 @@
      "status": "current",
      "milstd_table": "J-IV",
      "chg4_page": 178,
-     "short_label": "Tissue paper"
+     "short_label": "A-A-1249, paper, tissue"
     },
     {
      "code": "JX",
@@ -11163,7 +11163,7 @@
      "status": "current",
      "milstd_table": "J-IV",
      "chg4_page": 178,
-     "short_label": "Neutral wrapping paper"
+     "short_label": "MIL-DTL-17667, neutral wrapping paper"
     },
     {
      "code": "MA",
@@ -11275,7 +11275,7 @@
      "status": "current",
      "milstd_table": "J-IV",
      "chg4_page": 178,
-     "short_label": "Laminated crinkled paper"
+     "short_label": "MIL-P-130, laminated and creped wrapping paper"
     },
     {
      "code": "N3",
@@ -11415,7 +11415,7 @@
      "status": "current",
      "milstd_table": "J-IV",
      "chg4_page": 178,
-     "short_label": "Greaseproof-waterproof paper"
+     "short_label": "MIL-PRF-121, greaseproof, waterproof barrier"
     },
     {
      "code": "N8",
@@ -11577,7 +11577,7 @@
      "status": "current",
      "milstd_table": "J-IV",
      "chg4_page": 178,
-     "short_label": "Greaseproof-waterproof paper, light"
+     "short_label": "MIL-PRF-121, Type II, light duty, greaseproof, waterproof barrier"
     },
     {
      "code": "GK",
@@ -11598,11 +11598,11 @@
   }
  },
  "flagRules": {
-  "_about": "Owner-defined packaging risk flags (2026-10-28). Seeds the flag_rule table; management can tune in-app later. First matching tier wins per item; all matching reasons are shown.",
+  "_about": "Owner-defined packaging risk flags (2026-10-28; updated from the expert review 2026-11-04). Seeds the flag_rule table; management can tune in-app later. First matching tier wins per item; all matching reasons are shown.",
   "tiers": {
    "red": {
     "label": "STAR PACKAGING — special foam box",
-    "lead_time_weeks": "8-10",
+    "lead_time_weeks": "5-7",
     "cost": "very expensive",
     "action": "Price it into the quote and order immediately at award. Get the SPI/drawing from the contracting officer if not on file."
    },
@@ -11650,13 +11650,13 @@
      "NS",
      "NV"
     ],
-    "reason": "PPP-B-1672 reusable cushioned box (NS = folding convoluted, Type II; NV = telescoping encapsulated, Type III) — same family as star packaging; assume star-level cost and lead time until confirmed."
+    "reason": "PPP-B-1672 reusable cushioned box (NS = folding convoluted, Type II; NV = telescoping encapsulated, Type III) — same family as star packaging; assume star-level cost and lead time until confirmed. The expert was not sure either (review 2026-11-04) — still open."
    },
    {
     "tier": "red",
     "when": "text_matches",
     "value": "SPECIAL PACKAGING INSTRUCTION|\\bSPI#?\\s*[A-Z]{0,2}\\d{5,}",
-    "reason": "Contract cites a Special Packaging Instruction (SPI, DD Form 2169). Confirmed star packaging on SPI AK10737994 Rev B (NSN 6220-01-073-7994: SPE4A6-26-D-5218, SPE4A6-26-P-5876). Unconfirmed: cable-assembly SPIs AM12001059, AM10895488, AM10895489 (FMS shipments)."
+    "reason": "Contract cites a Special Packaging Instruction (SPI, DD Form 2169). Confirmed star packaging on SPI AK10737994 Rev B (NSN 6220-01-073-7994: SPE4A6-26-D-5218, SPE4A6-26-P-5876). Unconfirmed: cable-assembly SPIs AM12001059, AM10895488, AM10895489 (FMS shipments), AG00000600, AM10936300 and drawing 9384854 — the expert needs to see each SPI before he can say (review 2026-11-04)."
    },
    {
     "tier": "red",
@@ -11742,12 +11742,38 @@
     "reason": "Weather-resistant box required."
    },
    {
+    "tier": "yellow",
+    "when": "code_in",
+    "field": "wrap_mat",
+    "values": [
+     "EA",
+     "FA",
+     "GB",
+     "GH",
+     "JA"
+    ],
+    "reason": "Wrapping material we have to buy (expert review 2026-11-04: buy, 3–4 weeks). Creped paper (EC), tissue (DA) and lens paper (LA) are on the shelf."
+   },
+   {
+    "tier": "yellow",
+    "when": "code_in",
+    "field": "cush_dunn_mat",
+    "values": [
+     "AD",
+     "BG",
+     "DA",
+     "GT",
+     "NB"
+    ],
+    "reason": "Cushioning we have to buy (expert review 2026-11-04: buy, 3–4 weeks). Bubble wrap / foam (NA) is on the shelf."
+   },
+   {
     "tier": "review",
     "when": "any_core_field_zz",
     "reason": "At least one code is ZZ — the real requirement is in the supplemental text (e.g. 'BAG BL WITHIN BOX ED')."
    }
   ],
-  "_todo": "Confirm container code lists against data/reference/codes/unit_intermediate_container.json titles during build. Owner to confirm NS/NV should be red like NR/NW."
+  "_todo": "Open after the 2026-11-04 expert review: NS/NV red or yellow; the six cable-assembly/other SPIs (need the SPI documents); whether regular boxes D1/D3/D4/DO/EC/10 should be yellow (code cards said buy, the shelf question said 'sometimes have to order')."
  },
- "version": "d1439bcbf888"
+ "version": "65e26c141167"
 }

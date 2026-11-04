@@ -113,6 +113,7 @@ export interface Material {
   spec?: string;
   code?: string;
   purchase: boolean; // not normally stocked → buy at award
+  supplier?: string; // where we usually buy it
 }
 
 export interface CodeRow {

@@ -122,6 +122,43 @@ SPECIAL PACKAGING INSTRUCTION: AK10737994 REVISION: B DATED: 12/18/2023`,
   });
 });
 
+describe("decode — what the expert review taught us (2026-11-04)", () => {
+  it("star packaging is 5–7 weeks, not 8–10", () => {
+    const r = decode({ codes: { presMthd: "10", unitCont: "NR", packCode: "U" } }, ref);
+    expect(r.flags.leadTimeWeeks).toBe("5-7");
+    expect(r.recipe.steps.find((s) => s.title === "STAR PACKAGING box")?.warnings?.[0]).toContain("5–7 weeks");
+  });
+
+  it("wraps and cushioning he says we buy make the job yellow; shelf ones stay green", () => {
+    const bought = decode({ codes: { presMthd: "10", wrapMat: "GH", cushDunnMat: "GT", cushDunnThk: "C", unitCont: "E5", packCode: "U" } }, ref);
+    expect(bought.flags.tier).toBe("yellow");
+    expect(bought.recipe.materials.filter((m) => m.purchase).map((m) => m.code)).toEqual(["GH", "GT"]);
+    const shelf = decode({ codes: { presMthd: "10", wrapMat: "EC", cushDunnMat: "NA", cushDunnThk: "C", unitCont: "E5", packCode: "U" } }, ref);
+    expect(shelf.flags.tier).toBe("green");
+    expect(shelf.recipe.materials.every((m) => !m.purchase)).toBe(true);
+  });
+
+  it("cushioning thickness goes on all six sides", () => {
+    const r = decode({ codes: { presMthd: "10", cushDunnMat: "NA", cushDunnThk: "C", unitCont: "E5", packCode: "U" } }, ref);
+    expect(r.recipe.steps.find((s) => s.title === "Cushion it")?.detail).toContain("on all six sides of the item");
+  });
+
+  it("MIL-spec bags warn about the commercial-bag mistake and name the usual supplier", () => {
+    const r = decode({ codes: { presMthd: "31", unitCont: "BL", packCode: "U" } }, ref);
+    expect(r.recipe.steps.find((s) => s.title.startsWith("Bag it"))?.warnings?.join(" ")).toContain("regular commercial bag");
+    expect(r.recipe.materials.find((m) => m.code === "BL")?.supplier).toBe("EDCO");
+    expect(r.recipe.warnings.join(" ")).toContain("only if the part is fragile");
+  });
+
+  it("uses the code labels the expert chose", () => {
+    const r = decode({ codes: { presMthd: "10", clngDry: "1", unitCont: "BS", specialMarking: "01", packCode: "U" } }, ref);
+    const label = (f: string) => r.recipe.codeTable.find((row) => row.field === f)?.shortLabel;
+    expect(label("presMthd")).toBe("Physical protection");
+    expect(label("unitCont")).toContain("MIL-DTL-117, Type I, Class E, Style 1");
+    expect(label("specialMarking")).toContain("Apply FRAGILE");
+  });
+});
+
 describe("decode — every historical contract block (golden sweep)", () => {
   const results = records.map((rec) => ({ rec, r: decode({ text: rec.rawBlock }, ref) }));
 

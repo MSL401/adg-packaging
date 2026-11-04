@@ -17,7 +17,7 @@ interface Data {
 const NAME_KEY = "packaging-reviewer-name";
 
 const VERDICT_LABEL: Record<Verdict, string> = { ok: "✅ Yes, that's right", change: "✏️ Needs a change", unsure: "❓ I'm not sure", answered: "📝 Answered" };
-const STOCK_LABEL: Record<Stock, string> = { stock: "We keep it on the shelf", buy: "We have to buy it (3–4 weeks)", star: "Star / custom (8–10 weeks)", unknown: "I don't know" };
+const STOCK_LABEL: Record<Stock, string> = { stock: "We keep it on the shelf", buy: "We have to buy it (3–4 weeks)", star: "Star / custom (5–7 weeks)", unknown: "I don't know" };
 
 const fbKey = (t: ItemType, k: string) => `${t}|${k}`;
 /** DOM id of a card, for "Next unanswered" to scroll to. */
@@ -540,7 +540,7 @@ function QuestionList({ data, latest, reviewer, onSaved, photoKit }: {
         </p>
         <p className="text-xl text-slate-700">
           Our tool puts a flag on every contract: <b className="text-red-700">RED</b> = star / custom
-          foam packaging (8–10 weeks, very expensive), <b className="text-amber-700">YELLOW</b> = we have to buy packaging (3–4 weeks),{" "}
+          foam packaging (5–7 weeks, very expensive), <b className="text-amber-700">YELLOW</b> = we have to buy packaging (3–4 weeks),{" "}
           <b className="text-emerald-700">GREEN</b> = we have everything on the shelf.
         </p>
       </div>
@@ -796,7 +796,8 @@ function CodeCard({ c, last, reviewer, onSaved, photoKit }: {
 
   const label = c.shortLabel ?? c.plainEnglish ?? c.title ?? "";
   // Ready-made alternatives so "Needs a change" is a click, not typing: the official wording and the tool's longer explanation.
-  const firstSentence = c.plainEnglish?.split(/(?<=\.)\s/)[0]?.replace(/\.$/, "");
+  // (a full stop after "e.g" / "i.e" or inside "in." does not end a sentence — C60's wording was cut off at "(e.g" before)
+  const firstSentence = c.plainEnglish?.split(/(?<!\b(?:e\.g|i\.e|in|etc)\.)(?<=\.)\s/)[0]?.replace(/\.$/, "");
   const alternatives = [...new Set([c.title, firstSentence].filter((s): s is string => !!s && s !== label))];
   const ownWords = form.suggestedText !== "" && !alternatives.includes(form.suggestedText);
 

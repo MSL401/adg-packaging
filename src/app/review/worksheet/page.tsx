@@ -45,7 +45,7 @@ export default function WorksheetPage() {
         <div className="print-break-avoid">
           <h2 className="border-b-2 border-slate-800 text-lg font-bold">Part 1: Questions (most common first)</h2>
           <p className="text-slate-700">
-            Our tool flags every contract: RED = star / custom foam packaging (8–10 weeks, very expensive), YELLOW = we have to buy packaging (3–4 weeks), GREEN =
+            Our tool flags every contract: RED = star / custom foam packaging (5–7 weeks, very expensive), YELLOW = we have to buy packaging (3–4 weeks), GREEN =
             everything is on the shelf. The rare Special Packaging Instruction (SPI) questions are at the end.
           </p>
         </div>

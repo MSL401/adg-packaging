@@ -6,7 +6,7 @@ Written 2026-10-30 by the Claude session that built the app on the Dell PC, for 
 
 It turns the MIL-STD-2073-1 packaging codes on DLA contracts into plain-English packing steps for shipping, purchasing and management. It flags packaging that costs money or time:
 
-- 🔴 star packaging (special foam boxes, 8–10 weeks)
+- 🔴 star packaging (special foam boxes, 5–7 weeks per the expert; it was 8–10 before his review)
 - 🟡 materials to buy ahead (weather-resistant boxes, desiccant, MIL-DTL-117 bags; 3–4 weeks)
 - 🟢 shelf stock
 
@@ -63,7 +63,46 @@ These run in order at server start, and every release must boot on the previous 
   - Are the cable-assembly SPIs (AM12001059, AM10895488, AM10895489) really star packaging?
   - Should the NS/NV reusable boxes be 🔴 or 🟡?
 
-## Decisions made so far
+## Expert review results (2026-11-04)
+
+Perry Stone answered all 109 items: 39 OK, 25 changed, 7 unsure, and 38 questions answered. He added no photos. Rev 0.2 applies what was clear (see REV.md). The raw answers stay in the mini's database (`GET /api/packaging/review`).
+
+**How to read his "Needs a change" answers.** The code card asked only whether the short label was right, and offered two ready-made wordings: the official title, or the first sentence of our explanation.
+- For materials he picked the spec callout; for steps and markings, the full instruction.
+- So he prefers precise spec wording over our friendly names.
+- His wording is now each code's `short_label`.
+
+**Confirmed by him.** These now match what the tool does:
+- OPI M and O;
+- PACK CODE U (palletize over 25 boxes) and Q at Level B (a weather-resistant cardboard box);
+- AAA limits, and a count in the instructions wins over AAA;
+- BL, A1, Method 31 and 32 need a MIL-spec bag; A2, D3951 and Method 10 can use a commercial bag;
+- "BAG BL WITHIN BOX ED" means the part goes in the bag and the bag goes in the box;
+- NR and NW are star packaging;
+- every DLA "always" rule is followed;
+- the exact bag the contract names is always used.
+
+**Shop practice that differs from the standard.** These are not changed in the tool; the owner needs to decide.
+1. Method 31: "we don't do the seal tests". The tool still says the seal gets leak- and seal-tested.
+2. Methods 32 and 42: "we don't blunt the corners" of the inner box. The tool still says to blunt them.
+3. Labels: our bar code is a linear (store-style) one, not the 2D one in the sample. Check what MIL-STD-129 requires on our contracts before changing anything.
+
+**His answers conflict.** These need a follow-up question.
+- The question said BL and foil bags (BS, SE, B3, SF, SK) are "on the shelf", but the BL and BS code cards said "we have to buy it (3–4 weeks)". The tool keeps them yellow.
+- Regular boxes (D1, D3, D4, DO, EC, 10) were "buy" on the code cards, but "sometimes have to order" in the shelf question.
+  - They are left green.
+  - Making them yellow would move 38 more of the 271 past blocks from green to yellow.
+
+**Still unknown.**
+- NS and NV: red or yellow?
+- All six SPI questions: he needs to see each SPI. The all-ZZ question: not sure.
+- PRESV MAT 49, the desiccant methods (51–53) and their stock, MIL-PRF-23199, OPI E and A.
+- Weather-resistant boxes other than ED.
+- The suppliers he picked "Other" for: star boxes, ED boxes and pallets.
+- His photos (he has all five).
+- Lead times not used by the flags yet: desiccant under 1 week, heat-treated wood 1–2 weeks.
+
+
 
 - **Stack and approach:** same stack as the fleet. Own SQLite file. No separate user system. Global Shop is read-only; contracts match orders by PO # = contract number.
 - **Bags:**

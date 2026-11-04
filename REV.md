@@ -1,6 +1,19 @@
 # Packaging Decoder: revisions
 
-## Rev 0.1 (2026-10-30)
+## Rev 0.2 (2026-11-04)
+
+Changes from the expert's review (Perry Stone answered all 40 questions and 69 codes on 2026-11-04).
+
+- **Star packaging is 5–7 weeks**, not 8–10, for NR / NW foam boxes.
+- **More jobs flag yellow:** wraps (EA, FA, GB, GH, JA) and cushioning (AD, BG, DA, GT, NB) are bought per job, about 3–4 weeks, so they now go on the 🛒 order list. Creped paper, tissue, lens paper and bubble wrap / foam stay on the shelf.
+- **Code labels use the expert's wording** for the 25 codes he changed: the spec callout for materials (for example "MIL-DTL-117, Type I, Class E, Style 1 …") and the full instruction for steps and markings.
+- **Cushioning thickness goes on all six sides** of the item.
+- **Common mistakes are called out:** a regular commercial bag where a MIL-spec bag is required, and missing or wrong labels.
+- **A sealed bag with no inner box named** goes in a box first only if the part is fragile.
+- **Supplier:** MIL-spec clear bags (BL) and foil bags (BS, SF, SK) usually come from EDCO.
+- **Review form fix:** a ready-made wording no longer gets cut off at "e.g." (that is what happened to code GX).
+
+
 
 First version on GitHub, before the move to the Mac mini.
 

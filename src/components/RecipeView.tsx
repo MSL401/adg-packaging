@@ -36,6 +36,7 @@ function MaterialList({ items }: { items: Material[] }) {
           <span className="font-medium">{m.name}</span>
           {m.code && <span className="ml-1 font-mono text-sm text-slate-500">({m.code})</span>}
           {m.spec && <span className="block text-sm text-slate-500">{m.spec}</span>}
+          {m.supplier && <span className="block text-sm text-slate-500">Usually from {m.supplier}</span>}
         </li>
       ))}
     </ul>
@@ -152,10 +153,10 @@ export function RecipeView({ result, history }: { result: DecodeResult; history?
                   {r.label} <b className="text-base text-slate-900">{r.code}</b>
                 </div>
                 <div className="font-semibold">{r.shortLabel ?? r.plainEnglish ?? "—"}</div>
-                {(r.title || r.milstdRef) && (
+                {((r.title && r.title !== r.shortLabel) || r.milstdRef) && (
                   <details className="text-sm text-slate-600">
                     <summary className="cursor-pointer select-none text-slate-500 underline">official wording</summary>
-                    {r.title}
+                    {r.title !== r.shortLabel && r.title}
                     {r.milstdRef && <span className="block text-xs text-slate-400">MIL-STD-2073-1E {r.milstdRef}</span>}
                   </details>
                 )}

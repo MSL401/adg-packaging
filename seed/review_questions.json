@@ -1,10 +1,10 @@
 {
-  "version": "2026-10-29.9",
+  "version": "2026-11-04.1",
   "sections": [
     {
       "id": "flags",
       "title": "Which jobs need packaging bought ahead of time",
-      "intro": "The tool flags every contract RED (star foam box, 8–10 weeks), YELLOW (packaging we buy, 3–4 weeks) or GREEN (on the shelf).",
+      "intro": "The tool flags every contract RED (star foam box, 5–7 weeks), YELLOW (packaging we buy, 3–4 weeks) or GREEN (on the shelf).",
       "short": "Buy-ahead flag"
     },
     {

@@ -81,6 +81,11 @@ const BAG_CODES = new Set([...MILSPEC_BAG_CODES, "A2"]);
 const STAR_CODES = new Set(["NR", "NW", "NS", "NV"]);
 // Codes the owner keeps on the shelf vs. buys per job (see data/reference/flag_rules.json).
 const PURCHASE_CONTAINERS = new Set([...MILSPEC_BAG_CODES, "ED", "DQ", "DR", "E9", "EE", "EF", "EG", "EP", "NO", "SD", "SE", "SF", "SK", ...STAR_CODES]);
+// Wraps and cushioning the expert says we buy per job (review 2026-11-04); EC, DA, LA paper and NA bubble/foam are on the shelf.
+const PURCHASE_WRAPS = new Set(["EA", "FA", "GB", "GH", "JA"]);
+const PURCHASE_CUSHIONS = new Set(["AD", "BG", "DA", "GT", "NB"]);
+// Where we usually buy it (expert review 2026-11-04).
+const SUPPLIER: Record<string, string> = { BL: "EDCO", BS: "EDCO", SF: "EDCO", SK: "EDCO" };
 
 const isNone = (v?: string) => !v || v === "0" || v === "00" || v === "000";
 const isZ = (v?: string) => v === "Z" || v === "ZZ" || v === "ZZZ";
@@ -227,7 +232,7 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
       codes: [{ field: "wrapMat", code: c.wrapMat! }],
     });
     layers.push({ name: "Wrap", detail: name });
-    if (!isZ(c.wrapMat)) addMaterial({ name: capitalize(name), spec: look("wrapMat")?.title ?? undefined, code: c.wrapMat, purchase: false });
+    if (!isZ(c.wrapMat)) addMaterial({ name: capitalize(name), spec: look("wrapMat")?.title ?? undefined, code: c.wrapMat, purchase: PURCHASE_WRAPS.has(c.wrapMat!) });
   }
 
   // 4. Cushion
@@ -238,12 +243,12 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
       title: "Cushion it",
       detail: isZ(c.cushDunnMat)
         ? zzNote
-        : `Cushion with ${name}${thk ? `, at least ${thk.replace(/ thick$/, "")} thick on every side that needs protection` : ""}. Cover every sharp edge and projection so nothing can punch through the bag or box.`,
+        : `Cushion with ${name}${thk ? `, at least ${thk.replace(/ thick$/, "")} thick on all six sides of the item` : ""}. Cover every sharp edge and projection so nothing can punch through the bag or box.`,
       codes: [{ field: "cushDunnMat", code: c.cushDunnMat! }, ...(c.cushDunnThk ? [{ field: "cushDunnThk" as const, code: c.cushDunnThk }] : [])],
       warnings: ["Never use loose fill (packing peanuts, shredded paper)."],
     });
     layers.push({ name: "Cushioning", detail: `${name}${thk ? ` (${thk})` : ""}` });
-    if (!isZ(c.cushDunnMat)) addMaterial({ name: capitalize(name), spec: look("cushDunnMat")?.title ?? undefined, code: c.cushDunnMat, purchase: false });
+    if (!isZ(c.cushDunnMat)) addMaterial({ name: capitalize(name), spec: look("cushDunnMat")?.title ?? undefined, code: c.cushDunnMat, purchase: PURCHASE_CUSHIONS.has(c.cushDunnMat!) });
   }
 
   // 5. Method of preservation (the barrier)
@@ -282,12 +287,15 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
       codes: [{ field: "presMthd", code: method }],
       warnings: [
         ...(HEAT_SEAL.has(method) ? ["The heat seal must be continuous — the bag gets leak-tested and seal-tested."] : []),
+        ...(bagCode && MILSPEC_BAG_CODES.includes(bagCode)
+          ? [`Common mistake: a regular commercial bag used here. It must be the ${bagCode} MIL-spec bag — exactly the bag the contract names.`]
+          : []),
         ...(bm.desiccant ? ["Method 50 packs hold one item each (QUP must be 1). Leave extra bag material for two reseals."] : []),
         ...(method === "GX" ? ["ESD item: requires an approved ESD control program (ANSI/ESD S20.20 or MIL-STD-1686), static-safe wrap AND cushion."] : []),
       ],
     });
     layers.push({ name: "Sealed bag", detail: `${bagName}${bagCode ? ` (${bagCode})` : ""}` });
-    addMaterial({ name: capitalize(bagName), spec: bm.spec, code: bagCode, purchase: true });
+    addMaterial({ name: capitalize(bagName), spec: bm.spec, code: bagCode, purchase: true, supplier: bagCode && SUPPLIER[bagCode] });
     if (bm.desiccant) {
       addMaterial({ name: "Desiccant bags", spec: "MIL-D-3464 Type I", purchase: true });
       addMaterial({ name: "Humidity indicator card", spec: "MS20003", purchase: true });
@@ -321,14 +329,21 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
       for (const n of named) {
         if (n === unit) continue;
         layers.push({ name: BAG_CODES.has(n) ? "Bag (from instructions)" : "Box (from instructions)", detail: `${friendly("unitCont", n)} (${n})` });
-        addMaterial({ name: capitalize(friendly("unitCont", n)), spec: look("unitCont", n)?.title ?? undefined, code: n, purchase: PURCHASE_CONTAINERS.has(n) });
+        addMaterial({ name: capitalize(friendly("unitCont", n)), spec: look("unitCont", n)?.title ?? undefined, code: n, purchase: PURCHASE_CONTAINERS.has(n), supplier: SUPPLIER[n] });
       }
     } else if (BAG_CODES.has(unit)) {
       if (!bm) {
         // Bag unit container without a bag method (e.g. Method 10 + A1)
-        steps.push({ title: "Put it in the bag", detail: `Put the item in a ${unitName}.`, codes: [{ field: "unitCont", code: unit }] });
+        steps.push({
+          title: "Put it in the bag",
+          detail: `Put the item in a ${unitName}.`,
+          codes: [{ field: "unitCont", code: unit }],
+          warnings: MILSPEC_BAG_CODES.includes(unit)
+            ? [`Common mistake: a regular commercial bag used here. It must be the ${unit} MIL-spec bag — exactly the bag the contract names.`]
+            : undefined,
+        });
         layers.push({ name: "Bag", detail: `${unitName} (${unit})` });
-        addMaterial({ name: capitalize(unitName), spec: look("unitCont", unit)?.title ?? undefined, code: unit, purchase: PURCHASE_CONTAINERS.has(unit) });
+        addMaterial({ name: capitalize(unitName), spec: look("unitCont", unit)?.title ?? undefined, code: unit, purchase: PURCHASE_CONTAINERS.has(unit), supplier: SUPPLIER[unit] });
       }
       // otherwise the bag was covered in step 5
     } else {
@@ -340,7 +355,7 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
           (bm ? " Any cushioning goes between the bag and the box. Mark both the bag and the box as unit packs." : "") +
           ` ${sentence(look("unitCont", unit)?.plain_english)}`,
         codes: [{ field: "unitCont", code: unit }],
-        warnings: star ? ["Star packaging is 8–10 weeks lead time and very expensive — order at award."] : undefined,
+        warnings: star ? ["Star packaging is 5–7 weeks lead time and very expensive — order at award."] : undefined,
       });
       layers.push({ name: star ? "Star foam box" : "Unit box", detail: `${unitName} (${unit})` });
       addMaterial({ name: capitalize(unitName), spec: look("unitCont", unit)?.title ?? undefined, code: unit, purchase: PURCHASE_CONTAINERS.has(unit) });
@@ -393,7 +408,9 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
   }
   const unitIsBag = (unit && BAG_CODES.has(unit)) || (bm && (!unit || BAG_CODES.has(unit)));
   if (unitIsBag && (!icq || icq === "000"))
-    warnings.push("The unit pack is a bag, and the standard normally expects bagged unit packs to go in an intermediate box. The contract governs.");
+    warnings.push(
+      "The unit pack is a bag and no intermediate box is named. Our practice: box the sealed bag first only if the part is fragile; otherwise it can go straight into the shipping box. The contract governs.",
+    );
 
   // 8. Packing (outer shipping container)
   if (c.packCode) {
@@ -440,7 +457,7 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
     steps.push({
       title: "Mark it",
       detail:
-        "Mark and label every unit pack, intermediate box and shipping container per MIL-STD-129 (military shipping label with bar codes on every shipment)." +
+        "Mark and label every unit pack, intermediate box and shipping container per MIL-STD-129 (military shipping label with bar codes on every shipment). Common mistake: a missing or wrong label on a bag or box — check every one before it ships." +
         (sm && !isNone(sm) ? ` Special marking: ${isZ(sm) ? "special — see instructions" : `${smEntry?.title ?? sm}. ${sentence(smEntry?.plain_english)}`}` : ""),
       codes: sm ? [{ field: "specialMarking", code: sm }] : undefined,
     });

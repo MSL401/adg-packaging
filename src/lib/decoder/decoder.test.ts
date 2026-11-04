@@ -158,12 +158,32 @@ describe("decode — what the expert review taught us (2026-11-04)", () => {
     expect(label("specialMarking")).toContain("Apply FRAGILE");
   });
 
-  it("follows shop practice the owner approved: no seal tests, no blunted corners", () => {
+  it("follows shop practice the owner approved: no seal tests, corners not mentioned", () => {
     const r = decode({ codes: { presMthd: "32", unitCont: "BL", packCode: "U" } }, ref);
     const text = JSON.stringify(r.recipe);
-    expect(text).not.toMatch(/Blunt the box corners|corners blunted/);
+    expect(text).not.toMatch(/blunt|corner/i);
     expect(text).not.toMatch(/seal-tested|leak-tested/);
     expect(r.recipe.steps.find((s) => s.title.startsWith("Bag it"))?.warnings?.join(" ")).toContain("no separate leak or seal test");
+  });
+
+  it("shows the guide diagram for the method and the label examples (guides 2026-11-04)", () => {
+    const r = decode({ codes: { presMthd: "42", unitCont: "BS", packCode: "U" } }, ref);
+    expect(r.recipe.steps.find((s) => s.title.startsWith("Bag it"))?.pictures?.[0]?.src).toBe("/guides/method-42.jpg");
+    const mark = r.recipe.steps.find((s) => s.title === "Mark it")!;
+    expect(mark.pictures?.map((p) => p.src)).toEqual(["/guides/label-unit.jpg", "/guides/label-exterior.jpg"]);
+    expect(mark.detail).toContain("on the sealed bag AND on the outer box");
+    expect(mark.detail).toContain("linear (Code 39) bar code is fine");
+    expect(mark.detail).toContain("M42 11/26");
+  });
+
+  it("Method 50 packs get the Method 50 label; a UII in the contract asks for the 2D symbol", () => {
+    const r = decode({ codes: { presMthd: "51", unitCont: "BS", qup: "001", packCode: "U" } }, ref);
+    expect(r.recipe.steps.find((s) => s.title.startsWith("Bag it"))?.warnings?.join(" ")).toContain("Method 50 label");
+    expect(r.recipe.steps.find((s) => s.title === "Mark it")?.pictures?.map((p) => p.src)).toContain("/guides/label-method50.jpg");
+    const plain = r.recipe.steps.find((s) => s.title === "Mark it")?.warnings?.join(" ") ?? "";
+    expect(plain).not.toContain("UII");
+    const uii = decode({ codes: { presMthd: "10", unitCont: "E5", packCode: "U" }, text: "IUID MARKING REQUIRED PER DFARS 252.211-7003" }, ref);
+    expect(uii.recipe.steps.find((s) => s.title === "Mark it")?.warnings?.join(" ")).toContain("2D (PDF417)");
   });
 });
 

@@ -8,6 +8,7 @@ import {
   type Layer,
   type Material,
   type ParsedPackaging,
+  type Picture,
   type Recipe,
   type RecipeStep,
 } from "./types";
@@ -79,6 +80,20 @@ const HEAT_SEAL = new Set(["31", "32", "33", "41", "42", "43", "51", "52", "53",
 const MILSPEC_BAG_CODES = ["BL", "BV", "BE", "SD", "B2", "BS", "SE", "B3", "B9", "SF", "SK", "A1"];
 const BAG_CODES = new Set([...MILSPEC_BAG_CODES, "A2"]);
 const STAR_CODES = new Set(["NR", "NW", "NS", "NV"]);
+// Diagrams from the guides in docs/expert-guides, rendered into public/guides.
+// DoD = DCMA "Packaging and Marking Guide for DoD" (2014); DLA = "DLA Packaging and Marking Guide" (April 2025).
+const METHOD_PICTURES: Record<string, string> = {
+  "10": "DoD guide p. 10", "20": "DoD guide p. 11", "31": "DoD guide p. 12", "32": "DoD guide p. 13", "33": "DoD guide p. 14",
+  "41": "DoD guide p. 15", "42": "DoD guide p. 16", "43": "DoD guide p. 17", "44": "DoD guide p. 18", "45": "DoD guide p. 19",
+  "51": "DoD guide p. 20", "52": "DoD guide p. 21", "53": "DLA guide p. 34", "54": "DLA guide p. 35", "55": "DLA guide p. 36",
+};
+const LABEL_PICTURES: Picture[] = [
+  { src: "/guides/label-unit.jpg", caption: "Unit and intermediate box labels: linear (Code 39) bar code, or 2D for items with a UII (DoD guide p. 30)" },
+  { src: "/guides/label-exterior.jpg", caption: "Shipping container labels and the Military Shipping Label (DoD guide p. 32)" },
+];
+const METHOD50_PICTURE: Picture = { src: "/guides/label-method50.jpg", caption: "The Method 50 label (DLA guide p. 31)" };
+// Contract text that means the item carries a Unique Item Identifier (IUID), so labels need the 2D (PDF417) symbol.
+const UII_RE = /\bUII\b|\bIUID\b|252\.211-7003|UNIQUE ITEM IDENTIF/i;
 // Codes the owner keeps on the shelf vs. buys per job (see data/reference/flag_rules.json).
 const PURCHASE_CONTAINERS = new Set([...MILSPEC_BAG_CODES, "ED", "DQ", "DR", "E9", "EE", "EF", "EG", "EP", "NO", "SD", "SE", "SF", "SK", ...STAR_CODES]);
 // Wraps and cushioning the expert says we buy per job (review 2026-11-04); EC, DA, LA paper and NA bubble/foam are on the shelf.
@@ -269,7 +284,7 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
     if (bm.innerBox) {
       steps.push({
         title: "Put it in a close-fitting inner box",
-        detail: "Put the item in a snug inner box (Table C-I). Shop practice: we don't blunt the box corners.",
+        detail: "Put the item in a snug inner box (Table C-I).",
       });
       layers.push({ name: "Inner box", detail: "close-fitting" });
       addMaterial({ name: "Close-fitting inner box", spec: "MIL-STD-2073-1 Table C-I", purchase: false });
@@ -290,7 +305,7 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
         ...(bagCode && MILSPEC_BAG_CODES.includes(bagCode)
           ? [`Common mistake: a regular commercial bag used here. It must be the ${bagCode} MIL-spec bag — exactly the bag the contract names.`]
           : []),
-        ...(bm.desiccant ? ["Method 50 packs hold one item each (QUP must be 1). Leave extra bag material for two reseals."] : []),
+        ...(bm.desiccant ? ["Method 50 packs hold one item each (QUP must be 1). Leave extra bag material for two reseals.", "Put the red Method 50 label (\"Packaged with desiccant — do not open\") on the pack."] : []),
         ...(method === "GX" ? ["ESD item: requires an approved ESD control program (ANSI/ESD S20.20 or MIL-STD-1686), static-safe wrap AND cushion."] : []),
       ],
     });
@@ -444,6 +459,10 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
     .filter(Boolean)
     .join(", ");
 
+  const pic = METHOD_PICTURES[method];
+  const methodStep = pic ? steps.find((st) => st.codes?.some((x) => x.field === "presMthd" && x.code === method)) : undefined;
+  if (methodStep) methodStep.pictures = [{ src: `/guides/method-${method}.jpg`, caption: `Method ${method} (${pic})` }, ...(methodStep.pictures ?? [])];
+
   return { mode: "codes", headline: headline || "Coded MIL-STD-2073-1 packaging", steps, layers, materials, warnings, codeTable };
 
   // Supplemental text, packaging notes, marking and DLA-wide rules apply in every mode.
@@ -454,12 +473,34 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
 
     const sm = c.specialMarking;
     const smEntry = sm ? dict.lookup("specialMarking", sm) : undefined;
+    const m = c.presMthd ?? "";
+    const where: string[] = [];
+    if (m === "42" || m === "52") where.push("For this method, put the unit pack label on the sealed bag AND on the outer box.");
+    else if (["31", "33", "41", "51"].includes(m) && c.unitCont && !BAG_CODES.has(c.unitCont) && !isZ(c.unitCont))
+      where.push("The bag goes in a box to make the unit pack: put the unit pack label on the bag AND on the box.");
+    else if (m === "43" || m === "53") where.push("Label the bag as the unit pack; the outer container is the shipping container and gets the shipping marks.");
+    const markWarnings = [
+      "Common mistake: a missing, incomplete or wrong label on a bag or box — check every one before it ships. DLA finds a marking or packaging defect on about 1 in 15 receipts; it bills us to fix it, holds payment when the fix is over $1,000, and it hurts our SPRS score.",
+      ...(UII_RE.test(p.raw)
+        ? ["This contract mentions a UII (IUID). Items with a UII need the 2D (PDF417) \"ID DATA / INCLUDES UII(s)\" symbol on the label — a linear bar code alone isn't enough."]
+        : []),
+    ];
     steps.push({
       title: "Mark it",
       detail:
-        "Mark and label every unit pack, intermediate box and shipping container per MIL-STD-129 (military shipping label with bar codes on every shipment — our linear bar code labels are what we use today). Common mistake: a missing or wrong label on a bag or box — check every one before it ships." +
-        (sm && !isNone(sm) ? ` Special marking: ${isZ(sm) ? "special — see instructions" : `${smEntry?.title ?? sm}. ${sentence(smEntry?.plain_english)}`}` : ""),
+        "Label every unit pack, intermediate box and shipping container per MIL-STD-129. The ID label shows:\n" +
+        "• NSN, CAGE (ours), part number, and item name\n" +
+        "• Quantity and unit of issue (e.g. 1 EA)\n" +
+        "• Contract number (the 13-character PIID)\n" +
+        `• Preservation method and date, e.g. M${/^\d\d$/.test(m) ? m : "41"} 11/26\n` +
+        "• Serial number, and shelf-life dates, only if they apply\n" +
+        "• Gross weight on the shipping container\n" +
+        "Bar codes: our linear (Code 39) bar code is fine — NSN on unit and intermediate boxes; NSN, contract, CAGE, CLIN and shipment number on the shipping container. The shipping container also gets the Military Shipping Label (MSL)." +
+        (where.length ? `\n${where.join(" ")}` : "") +
+        (sm && !isNone(sm) ? `\nSpecial marking: ${isZ(sm) ? "special — see instructions" : `${smEntry?.title ?? sm}. ${sentence(smEntry?.plain_english)}`}` : ""),
       codes: sm ? [{ field: "specialMarking", code: sm }] : undefined,
+      warnings: markWarnings,
+      pictures: [...LABEL_PICTURES, ...(BAG_METHODS[m]?.desiccant || /^5\d$/.test(m) ? [METHOD50_PICTURE] : [])],
     });
     steps.push({
       title: "DLA rules that always apply",

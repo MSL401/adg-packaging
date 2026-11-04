@@ -83,9 +83,31 @@ Perry Stone answered all 109 items: 39 OK, 25 changed, 7 unsure, and 38 question
 - the exact bag the contract names is always used.
 
 **Shop practice that differs from the standard.** These are not changed in the tool; the owner needs to decide.
-1. Method 31: "we don't do the seal tests". Owner decision (2026-11-04): we don't need them. The tool now says the seal must be continuous, with no separate leak or seal test.
-2. Methods 32 and 42: "we don't blunt the corners" of the inner box. Owner decision: follow the expert. The tool no longer says to blunt them.
-3. Labels: our bar code is a linear (store-style) one, not the 2D one in the sample. Owner decision: what we do today is assumed OK; the owner is checking MIL-STD-129. The Mark step says our linear labels are what we use.
+1. Method 31: "we don't do the seal tests". Owner decision (2026-11-04): we don't need them. The tool says the seal must be continuous, with no separate leak or seal test.
+2. Methods 32 and 42: "we don't blunt the corners" of the inner box. Owner decision: the tool doesn't mention corners at all.
+3. Labels: our linear (Code 39) bar code is fine. Both guides show it as the normal label; the 2D (PDF417) symbol is needed only for items with a UII (IUID). Settled from the guides.
+
+## Packaging guides from the expert (docs/expert-guides, added 2026-11-04)
+
+Public documents (Distribution A / unlimited):
+- `DoD_PackagingandMarking_Guide.pdf`: DCMA "Packaging and Marking Guide for DoD", April 2014, 42 pages.
+- `J3_DLAPackagingandMarkingGuide_250401.pdf`: "DLA Packaging and Marking Guide", April 2025, 74 slides.
+
+What the app uses from them (Rev 0.2):
+- A diagram for each preservation method (10, 20, 31–33, 41–45, 51–55) and the label examples. They're rendered into `public/guides/*.jpg` and shown under "See the picture" on the step.
+- The "Mark it" step: what goes on the ID label, which bar codes go where, and the MSL. It also says where the label goes: on the bag AND the outer box for 42/52; on the bag and the box when a box makes the unit pack for 31/33/41/51; and for 43/53 the bag is the unit pack while the outer container gets the shipping marks.
+- The Method 50 label on desiccant packs.
+- A 2D-symbol warning when the contract text mentions a UII, IUID or DFARS 252.211-7003. None of the 271 past blocks do.
+- The cost of a marking defect, from the DLA guide: DLA finds a defect on 1 in 15 receipts, bills the contractor (procurement note C14), holds payment over $1,000, and the defect counts against SPRS.
+
+Where the guides differ from shop practice (the owner decided to follow shop practice; noted here so it isn't lost):
+- DoD guide p. 26–27: MIL-STD-2073-1 Appendix G makes the contractor responsible for the leak and heat-seal tests (Table G-II), and lists "interior unit container corners not blunted" as an inspection defect. The Method 32 and 42 diagrams show corners being blunted.
+
+Not used yet, possible later:
+- RFID tags (DFARS 252.211-7006) for some destinations.
+- IP027 (FSC 5961/5962 semiconductors and microcircuits).
+- Shelf-life label formats (Type I/II, cured date).
+- Pallet load limits from MIL-STD-147: 43 x 52 x 54 in., 3,000 lb.
 
 **His answers conflict.** These need a follow-up question.
 - The question said BL and foil bags (BS, SE, B3, SF, SK) are "on the shelf", but the BL and BS code cards said "we have to buy it (3–4 weeks)". The tool keeps them yellow.

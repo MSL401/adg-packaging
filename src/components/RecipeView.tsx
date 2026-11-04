@@ -99,6 +99,24 @@ export function RecipeView({ result, history }: { result: DecodeResult; history?
                     ⚠️ {w}
                   </p>
                 ))}
+                {s.pictures?.length ? (
+                  <details className="print:hidden pt-1">
+                    <summary className="cursor-pointer text-sm font-medium text-sky-700">
+                      📷 See the picture{s.pictures.length > 1 ? "s" : ""}
+                    </summary>
+                    <div className="mt-2 grid gap-3 sm:grid-cols-2">
+                      {s.pictures.map((pic) => (
+                        <figure key={pic.src} className="space-y-1">
+                          <a href={pic.src} target="_blank" rel="noreferrer">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={pic.src} alt={pic.caption} loading="lazy" className="w-full rounded border border-slate-200" />
+                          </a>
+                          <figcaption className="text-xs text-slate-500">{pic.caption}</figcaption>
+                        </figure>
+                      ))}
+                    </div>
+                  </details>
+                ) : null}
               </div>
               <span className="ml-auto hidden h-6 w-6 shrink-0 rounded border-2 border-slate-400 print:block" />
             </li>

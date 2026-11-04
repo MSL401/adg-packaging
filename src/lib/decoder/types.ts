@@ -101,6 +101,13 @@ export interface RecipeStep {
   detail: string;
   codes?: { field: CodeField; code: string }[];
   warnings?: string[];
+  pictures?: Picture[]; // diagrams from the DoD / DLA packaging guides (public/guides)
+}
+
+/** A diagram page from the packaging guides in docs/expert-guides. */
+export interface Picture {
+  src: string; // served from public/, e.g. "/guides/method-31.jpg"
+  caption: string;
 }
 
 export interface Layer {

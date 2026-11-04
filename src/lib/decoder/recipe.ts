@@ -95,12 +95,25 @@ const METHOD50_PICTURE: Picture = { src: "/guides/label-method50.jpg", caption: 
 // Contract text that means the item carries a Unique Item Identifier (IUID), so labels need the 2D (PDF417) symbol.
 const UII_RE = /\bUII\b|\bIUID\b|252\.211-7003|UNIQUE ITEM IDENTIF/i;
 // Codes the owner keeps on the shelf vs. buys per job (see data/reference/flag_rules.json).
-const PURCHASE_CONTAINERS = new Set([...MILSPEC_BAG_CODES, "ED", "DQ", "DR", "E9", "EE", "EF", "EG", "EP", "NO", "SD", "SE", "SF", "SK", ...STAR_CODES]);
+// Foil moisture-barrier bags are on the shelf; big orders may need buying (expert review round 2, 2026-11-04).
+const SHELF_FOIL_BAGS = new Set(["BS", "SF", "SK"]);
+const PURCHASE_CONTAINERS = new Set([...MILSPEC_BAG_CODES.filter((b) => !SHELF_FOIL_BAGS.has(b)), "ED", "DQ", "DR", "E9", "EE", "EF", "EG", "EP", "NO", "SD", "SE", ...STAR_CODES]);
+// Methods whose bag is a foil moisture-barrier bag we keep on the shelf.
+const SHELF_BAG_METHODS = new Set(["41", "42"]);
 // Wraps and cushioning the expert says we buy per job (review 2026-11-04); EC, DA, LA paper and NA bubble/foam are on the shelf.
 const PURCHASE_WRAPS = new Set(["EA", "FA", "GB", "GH", "JA"]);
 const PURCHASE_CUSHIONS = new Set(["AD", "BG", "DA", "GT", "NB"]);
-// Where we usually buy it (expert review 2026-11-04).
-const SUPPLIER: Record<string, string> = { BL: "EDCO", BS: "EDCO", SF: "EDCO", SK: "EDCO" };
+// Where we usually buy it (expert review 2026-11-04, rounds 1 and 2).
+const WEATHER_BOX_SUPPLIER = "Royco or Uline";
+const SUPPLIER: Record<string, string> = {
+  BL: "EDCO",
+  BS: "EDCO",
+  SF: "EDCO",
+  SK: "EDCO",
+  ED: WEATHER_BOX_SUPPLIER,
+  ...Object.fromEntries(["NR", "NW", "NS", "NV"].map((c) => [c, "Star Packaging"])),
+};
+const PALLET_SUPPLIER = "Service Pallet";
 
 const isNone = (v?: string) => !v || v === "0" || v === "00" || v === "000";
 const isZ = (v?: string) => v === "Z" || v === "ZZ" || v === "ZZZ";
@@ -302,6 +315,9 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
       codes: [{ field: "presMthd", code: method }],
       warnings: [
         ...(HEAT_SEAL.has(method) ? ["The heat seal must be continuous, with no gaps or wrinkles. Shop practice: no separate leak or seal test."] : []),
+        ...((bagCode ? SHELF_FOIL_BAGS.has(bagCode) : SHELF_BAG_METHODS.has(method))
+          ? ["Foil bags are on the shelf, but a big order may need more — check stock at award and order from EDCO if short."]
+          : []),
         ...(bagCode && MILSPEC_BAG_CODES.includes(bagCode)
           ? [`Common mistake: a regular commercial bag used here. It must be the ${bagCode} MIL-spec bag — exactly the bag the contract names.`]
           : []),
@@ -310,7 +326,8 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
       ],
     });
     layers.push({ name: "Sealed bag", detail: `${bagName}${bagCode ? ` (${bagCode})` : ""}` });
-    addMaterial({ name: capitalize(bagName), spec: bm.spec, code: bagCode, purchase: true, supplier: bagCode && SUPPLIER[bagCode] });
+    const shelfBag = bagCode ? SHELF_FOIL_BAGS.has(bagCode) : SHELF_BAG_METHODS.has(method);
+    addMaterial({ name: capitalize(bagName), spec: bm.spec, code: bagCode, purchase: !shelfBag, supplier: bagCode ? SUPPLIER[bagCode] : shelfBag ? "EDCO" : undefined });
     if (bm.desiccant) {
       addMaterial({ name: "Desiccant bags", spec: "MIL-D-3464 Type I", purchase: true });
       addMaterial({ name: "Humidity indicator card", spec: "MS20003", purchase: true });
@@ -373,7 +390,7 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
         warnings: star ? ["Star packaging is 5–7 weeks lead time and very expensive — order at award."] : undefined,
       });
       layers.push({ name: star ? "Star foam box" : "Unit box", detail: `${unitName} (${unit})` });
-      addMaterial({ name: capitalize(unitName), spec: look("unitCont", unit)?.title ?? undefined, code: unit, purchase: PURCHASE_CONTAINERS.has(unit) });
+      addMaterial({ name: capitalize(unitName), spec: look("unitCont", unit)?.title ?? undefined, code: unit, purchase: PURCHASE_CONTAINERS.has(unit), supplier: SUPPLIER[unit] });
     }
   }
   if (bm?.outerBox && (!unit || BAG_CODES.has(unit))) {
@@ -382,7 +399,7 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
       detail: `Method ${method} is box–bag–box: put the sealed bag in an outer container from Table C-II (weather-resistant fiberboard). Mark both the bag and the outer box as unit packs.`,
     });
     layers.push({ name: "Outer box", detail: "Table C-II weather-resistant fiberboard" });
-    addMaterial({ name: "Weather-resistant outer box", spec: "ASTM D5118 weather-resistant (Table C-II)", purchase: true });
+    addMaterial({ name: "Weather-resistant outer box", spec: "ASTM D5118 weather-resistant (Table C-II)", purchase: true, supplier: WEATHER_BOX_SUPPLIER });
   }
   if (qup) layers.push({ name: `= 1 unit pack`, detail: `${qup} item${qup === 1 ? "" : "s"} per unit pack (QUP ${c.qup})` });
 
@@ -416,7 +433,7 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
         codes: [...(inter ? [{ field: "intrmdteCont" as const, code: inter }] : []), ...(icq ? [{ field: "intrmdteQty" as const, code: icq }] : [])],
       });
       layers.push({ name: "Intermediate box", detail: `${interName ?? "special"}${inter ? ` (${inter})` : ""} — ${icq === "AAA" ? "you choose qty (≤100 / 40 lb / 1.5 cu ft)" : `qty ${icq}`}` });
-      if (interName) addMaterial({ name: capitalize(interName), spec: look("intrmdteCont")?.title ?? undefined, code: inter, purchase: PURCHASE_CONTAINERS.has(inter!) });
+      if (interName) addMaterial({ name: capitalize(interName), spec: look("intrmdteCont")?.title ?? undefined, code: inter, purchase: PURCHASE_CONTAINERS.has(inter!), supplier: SUPPLIER[inter!] });
     } else if (inter && !isNone(inter)) {
       warnings.push(`The contract names an intermediate container (${inter}) but the quantity is 000 (none). Ask which is right.`);
     }
@@ -441,7 +458,7 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
       warnings: c.packCode === "Q" && !c.packingLevel ? ["Pack code Q needs a packing level (A or B) — find it in the contract."] : undefined,
     });
     layers.push({ name: "Shipping container", detail: c.packCode === "U" ? "carrier-acceptable commercial box" : `${pk?.title ?? c.packCode}${level}` });
-    if (c.packCode === "Q" && c.packingLevel === "B") addMaterial({ name: "Weather-resistant shipping box (Level B, Table C-II)", spec: "ASTM D5118 weather-resistant", purchase: true });
+    if (c.packCode === "Q" && c.packingLevel === "B") addMaterial({ name: "Weather-resistant shipping box (Level B, Table C-II)", spec: "ASTM D5118 weather-resistant", purchase: true, supplier: WEATHER_BOX_SUPPLIER });
     else if (c.packCode === "U") addMaterial({ name: "Commercial shipping box", purchase: false });
   }
 
@@ -461,7 +478,7 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
 
   const pic = METHOD_PICTURES[method];
   const methodStep = pic ? steps.find((st) => st.codes?.some((x) => x.field === "presMthd" && x.code === method)) : undefined;
-  if (methodStep) methodStep.pictures = [{ src: `/guides/method-${method}.jpg`, caption: `Method ${method} (${pic})` }, ...(methodStep.pictures ?? [])];
+  if (methodStep) methodStep.pictures = [{ src: `/guides/method-${method}.jpg`, caption: `Method ${method} (${pic}). A picture from the guide — where it differs from the steps, follow the steps.` }, ...(methodStep.pictures ?? [])];
 
   return { mode: "codes", headline: headline || "Coded MIL-STD-2073-1 packaging", steps, layers, materials, warnings, codeTable };
 
@@ -480,6 +497,7 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
       where.push("The bag goes in a box to make the unit pack: put the unit pack label on the bag AND on the box.");
     else if (m === "43" || m === "53") where.push("Label the bag as the unit pack; the outer container is the shipping container and gets the shipping marks.");
     const markWarnings = [
+      "Item name: use the description exactly as the contract shows it (e.g. \"RETAINER, LENS\") — not our ERP or drawing name. DLA has written us up for this.",
       "Common mistake: a missing, incomplete or wrong label on a bag or box — check every one before it ships. DLA finds a marking or packaging defect on about 1 in 15 receipts; it bills us to fix it, holds payment when the fix is over $1,000, and it hurts our SPRS score.",
       ...(UII_RE.test(p.raw)
         ? ["This contract mentions a UII (IUID). Items with a UII need the 2D (PDF417) \"ID DATA / INCLUDES UII(s)\" symbol on the label — a linear bar code alone isn't enough."]
@@ -489,13 +507,16 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
       title: "Mark it",
       detail:
         "Label every unit pack, intermediate box and shipping container per MIL-STD-129. The ID label shows:\n" +
-        "• NSN, CAGE (ours), part number, and item name\n" +
+        "• NSN, CAGE (ours), part number, and the item name exactly as the contract shows it\n" +
         "• Quantity and unit of issue (e.g. 1 EA)\n" +
         "• Contract number (the 13-character PIID)\n" +
         `• Preservation method and date, e.g. M${/^\d\d$/.test(m) ? m : "41"} 11/26\n` +
         "• Serial number, and shelf-life dates, only if they apply\n" +
-        "• Gross weight on the shipping container\n" +
-        "Bar codes: our linear (Code 39) bar code is fine — NSN on unit and intermediate boxes; NSN, contract, CAGE, CLIN and shipment number on the shipping container. The shipping container also gets the Military Shipping Label (MSL)." +
+        "• Gross weight on the shipping container (MIL-STD-129 requires it; we don't mark it today)\n" +
+        "How we make them: the item ID labels come from our label software (part number, NSN, description, and a 2D bar code at the bottom). " +
+        "Linear (Code 39) or 2D bar codes both meet MIL-STD-129; 2D is required when the item has a UII.\n" +
+        "Shipping container: print the Military Shipping Label (MSL) from DLA's Vendor Shipment Module (VSM).\n" +
+        "Pallets (skids): stencil each one in paint with the contract number, NSN, part number and quantity." +
         (where.length ? `\n${where.join(" ")}` : "") +
         (sm && !isNone(sm) ? `\nSpecial marking: ${isZ(sm) ? "special — see instructions" : `${smEntry?.title ?? sm}. ${sentence(smEntry?.plain_english)}`}` : ""),
       codes: sm ? [{ field: "specialMarking", code: sm }] : undefined,
@@ -505,7 +526,7 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
     steps.push({
       title: "DLA rules that always apply",
       detail:
-        "No loose fill (peanuts, newspaper, shredded paper) and no yellow packaging material. Any wood (pallets, boxes, reels) must be heat-treated and stamped (ISPM-15). " +
+        `No loose fill (peanuts, newspaper, shredded paper) and no yellow packaging material. Any wood (pallets, boxes, reels) must be heat-treated and stamped (ISPM-15) — we buy heat-treated pallets from ${PALLET_SUPPLIER}. ` +
         `Palletize per ${p.palletization ?? "RP001"} when palletizing.`,
     });
   }

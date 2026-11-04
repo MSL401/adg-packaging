@@ -172,7 +172,7 @@ describe("decode — what the expert review taught us (2026-11-04)", () => {
     const mark = r.recipe.steps.find((s) => s.title === "Mark it")!;
     expect(mark.pictures?.map((p) => p.src)).toEqual(["/guides/label-unit.jpg", "/guides/label-exterior.jpg"]);
     expect(mark.detail).toContain("on the sealed bag AND on the outer box");
-    expect(mark.detail).toContain("linear (Code 39) bar code is fine");
+    expect(mark.detail).toContain("Linear (Code 39) or 2D bar codes both meet MIL-STD-129");
     expect(mark.detail).toContain("M42 11/26");
   });
 
@@ -184,6 +184,38 @@ describe("decode — what the expert review taught us (2026-11-04)", () => {
     expect(plain).not.toContain("UII");
     const uii = decode({ codes: { presMthd: "10", unitCont: "E5", packCode: "U" }, text: "IUID MARKING REQUIRED PER DFARS 252.211-7003" }, ref);
     expect(uii.recipe.steps.find((s) => s.title === "Mark it")?.warnings?.join(" ")).toContain("2D (PDF417)");
+  });
+});
+
+describe("decode — expert review round 2 (2026-11-04)", () => {
+  it("foil bags are on the shelf: Method 41 in a BS bag is green, with a big-order note", () => {
+    const r = decode({ codes: { presMthd: "41", unitCont: "BS", cushDunnMat: "NA", cushDunnThk: "B", packCode: "U" } }, ref);
+    expect(r.flags.tier).toBe("green");
+    const bag = r.recipe.materials.find((m) => m.code === "BS")!;
+    expect(bag.purchase).toBe(false);
+    expect(bag.supplier).toBe("EDCO");
+    expect(r.recipe.steps.find((s) => s.title.startsWith("Bag it"))?.warnings?.join(" ")).toContain("big order may need more");
+  });
+
+  it("BL bags are still bought; Method 42 stays yellow for its weather-resistant outer box", () => {
+    expect(decode({ codes: { presMthd: "31", unitCont: "BL", packCode: "U" } }, ref).flags.tier).toBe("yellow");
+    const m42 = decode({ codes: { presMthd: "42", unitCont: "BS", packCode: "U" } }, ref);
+    expect(m42.flags.tier).toBe("yellow");
+    expect(m42.recipe.materials.find((m) => m.name === "Weather-resistant outer box")?.supplier).toBe("Royco or Uline");
+  });
+
+  it("names the suppliers he gave us", () => {
+    expect(decode({ codes: { presMthd: "10", unitCont: "ED", packCode: "U" } }, ref).recipe.materials.find((m) => m.code === "ED")?.supplier).toBe("Royco or Uline");
+    expect(decode({ codes: { presMthd: "10", unitCont: "NR", packCode: "U" } }, ref).recipe.materials.find((m) => m.code === "NR")?.supplier).toBe("Star Packaging");
+    expect(decode({ codes: { presMthd: "10", unitCont: "E5", packCode: "U" } }, ref).recipe.steps.find((s) => s.title === "DLA rules that always apply")?.detail).toContain("Service Pallet");
+  });
+
+  it("marking follows how we actually label: contract description, VSM label, stenciled skids", () => {
+    const mark = decode({ codes: { presMthd: "10", unitCont: "E5", packCode: "U" } }, ref).recipe.steps.find((s) => s.title === "Mark it")!;
+    expect(mark.warnings?.[0]).toContain("exactly as the contract shows it");
+    expect(mark.detail).toContain("Vendor Shipment Module (VSM)");
+    expect(mark.detail).toContain("stencil each one in paint");
+    expect(mark.detail).toContain("we don't mark it today");
   });
 });
 

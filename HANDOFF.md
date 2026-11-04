@@ -237,3 +237,19 @@ Read the contract number from the PDF text instead.
 
   Which of these are still open hasn't been checked yet; that needs the open-orders list.
 
+## Round 2 results (Perry, 2026-11-04) — applied in Rev 0.4
+
+- R1:
+  - BL: "We buy them for each job" (stays yellow).
+  - BS/SF/SK: "On the shelf, but big orders need buying" (now green, with a stock-check note).
+- R2: regular boxes: "Keep them green — we get them in a few days".
+- R3: "Star Packaging" for star boxes; "Royco or Uline" for ED boxes; "Service Pallet" for heat-treated pallets.
+- R4: the label always shows NSN, CAGE, PN and name, quantity, contract number, and method and date. It **never** shows gross weight on the shipping box. Comment: the item name must come from the contract, not the ERP or drawing; DLA has written us up for that.
+- R5: the MSL comes from DLA's VSM. Skids are stenciled in paint (contract, NSN, PN, quantity). Our own software prints the item ID labels (PN, NSN, description, 2D bar code at the bottom).
+- R6: "make sure our instructions trump the guide or call out when they do not match".
+- R7: no photos after all. Use the guide diagrams for now and take our own photos eventually.
+
+Open from round 2:
+- **Gross weight (owner decision):** MIL-STD-129 and both guides require it on exterior containers, and the shop never marks it. The app shows the requirement with a "we don't mark it today" note.
+- Take our own photos (BL bag, ED box, star box, labeled unit pack, finished pallet) and add them under the guide pictures.
+

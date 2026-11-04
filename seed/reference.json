@@ -11677,14 +11677,22 @@
      "31",
      "32",
      "33",
-     "41",
-     "42",
      "43",
      "44",
      "45",
      "GX"
     ],
-    "reason": "Method requires a MIL-DTL-117 heat-sealed bag."
+    "reason": "Method requires a MIL-DTL-117 heat-sealed bag we buy (BL clear bags, greaseproof bags, floating bags, static-shielding bags). Foil bags for Methods 41/42 are on the shelf (expert review round 2, 2026-11-04)."
+   },
+   {
+    "tier": "yellow",
+    "when": "code_in",
+    "field": "pres_mthd",
+    "values": [
+     "42",
+     "52"
+    ],
+    "reason": "Box–bag–box method: the sealed bag goes in a weather-resistant outer box (Table C-II), which we buy (Royco or Uline)."
    },
    {
     "tier": "yellow",
@@ -11712,10 +11720,11 @@
      "BD",
      "BE",
      "BL",
-     "BS",
-     "BV"
+     "BV",
+     "SD",
+     "SE"
     ],
-    "reason": "Unit container is a MIL-DTL-117 / MIL-spec bag."
+    "reason": "Unit container is a MIL-DTL-117 / MIL-spec bag we buy. Foil bags BS, SF and SK are on the shelf (big orders may need buying)."
    },
    {
     "tier": "yellow",
@@ -11733,13 +11742,9 @@
      "EF",
      "EG",
      "EP",
-     "NO",
-     "SD",
-     "SE",
-     "SF",
-     "SK"
+     "NO"
     ],
-    "reason": "Weather-resistant box required."
+    "reason": "Weather-resistant box required (we buy them: Royco or Uline)."
    },
    {
     "tier": "yellow",
@@ -11775,5 +11780,5 @@
   ],
   "_todo": "Open after the 2026-11-04 expert review: NS/NV red or yellow; the six cable-assembly/other SPIs (need the SPI documents); whether regular boxes D1/D3/D4/DO/EC/10 should be yellow (code cards said buy, the shelf question said 'sometimes have to order')."
  },
- "version": "65e26c141167"
+ "version": "880308fbc0ae"
 }

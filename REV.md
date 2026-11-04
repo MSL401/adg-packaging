@@ -1,5 +1,20 @@
 # Packaging Decoder: revisions
 
+## Rev 0.4 (2026-11-04)
+Applies Perry's round 2 answers (R1–R7):
+- **Foil bags (BS, SF, SK) are on the shelf**, though big orders may need buying. Method 41 jobs and BS/SF/SK unit containers no longer flag yellow; the bag step says to check stock at award and order from EDCO if short. 13 of the 271 past jobs move yellow → green. BL bags stay "buy". Method 42/52 stays yellow for its weather-resistant outer box. SD and SE moved from the weather-box rule to the MIL-spec bag rule (they're bags; still yellow).
+- **Regular boxes** (E5, EC, D3, DO) stay green ("we get them in a few days").
+- **Suppliers:** star boxes from Star Packaging; ED and other weather-resistant boxes from Royco or Uline; heat-treated pallets from Service Pallet.
+- **Mark it** now matches how we label:
+  - Item name exactly as the contract shows it, not the ERP or drawing name (DLA has written us up for this).
+  - Item ID labels come from our label software, with a 2D bar code.
+  - The MSL comes from DLA's VSM.
+  - Skids are stenciled in paint (contract, NSN, PN, quantity).
+  - Gross weight: MIL-STD-129 requires it on the shipping container, and we don't mark it today. The step says so; owner to decide.
+- **Guide pictures:** the method picture's caption says to follow our steps where the picture differs (Perry: our instructions trump the guide).
+- **Photos:** none for now; the guide diagrams stand in until we take our own.
+- Reference version bumped so the live database reloads the flag rules.
+
 ## Rev 0.3 (2026-11-04)
 - Expert review Round 2: a new "Round 2: Follow-ups" tab on /review with 7 questions (R1–R7, kept in file order). It opens first while any are unanswered. Part 1 keeps Q1–Q40 and every saved answer. The questions:
   - R1: BL and foil bags, shelf or buy (his two answers disagreed).

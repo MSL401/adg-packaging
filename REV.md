@@ -23,3 +23,5 @@ First version on GitHub, before the move to the Mac mini.
 - **Expert review**: 40 questions and 69 code translations for our packaging veteran to check, ranked by how often they come up on our contracts, with answers saved per item, example photos, a CSV export, and a printable worksheet.
 - Review photos are stored inside the database, shrunk to 1600 px first, so the regular database backup covers them.
 - Admin password check ready for future admin-only features. Nothing is admin-only yet.
+- Owner decisions on shop practice: no leak or seal test on heat-sealed bags; inner box corners are not blunted (Methods 32/42); our linear bar code labels are what we use (owner is checking MIL-STD-129).
+

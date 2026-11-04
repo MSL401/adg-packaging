@@ -269,9 +269,9 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
     if (bm.innerBox) {
       steps.push({
         title: "Put it in a close-fitting inner box",
-        detail: "Put the item in a snug inner box (Table C-I). Blunt the box corners so they can't puncture the bag.",
+        detail: "Put the item in a snug inner box (Table C-I). Shop practice: we don't blunt the box corners.",
       });
-      layers.push({ name: "Inner box", detail: "close-fitting, corners blunted" });
+      layers.push({ name: "Inner box", detail: "close-fitting" });
       addMaterial({ name: "Close-fitting inner box", spec: "MIL-STD-2073-1 Table C-I", purchase: false });
     }
     const bagCode = c.unitCont && BAG_CODES.has(c.unitCont) ? c.unitCont : undefined;
@@ -286,7 +286,7 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
         "Squeeze out the extra air and heat-seal it shut.",
       codes: [{ field: "presMthd", code: method }],
       warnings: [
-        ...(HEAT_SEAL.has(method) ? ["The heat seal must be continuous — the bag gets leak-tested and seal-tested."] : []),
+        ...(HEAT_SEAL.has(method) ? ["The heat seal must be continuous, with no gaps or wrinkles. Shop practice: no separate leak or seal test."] : []),
         ...(bagCode && MILSPEC_BAG_CODES.includes(bagCode)
           ? [`Common mistake: a regular commercial bag used here. It must be the ${bagCode} MIL-spec bag — exactly the bag the contract names.`]
           : []),
@@ -457,7 +457,7 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
     steps.push({
       title: "Mark it",
       detail:
-        "Mark and label every unit pack, intermediate box and shipping container per MIL-STD-129 (military shipping label with bar codes on every shipment). Common mistake: a missing or wrong label on a bag or box — check every one before it ships." +
+        "Mark and label every unit pack, intermediate box and shipping container per MIL-STD-129 (military shipping label with bar codes on every shipment — our linear bar code labels are what we use today). Common mistake: a missing or wrong label on a bag or box — check every one before it ships." +
         (sm && !isNone(sm) ? ` Special marking: ${isZ(sm) ? "special — see instructions" : `${smEntry?.title ?? sm}. ${sentence(smEntry?.plain_english)}`}` : ""),
       codes: sm ? [{ field: "specialMarking", code: sm }] : undefined,
     });

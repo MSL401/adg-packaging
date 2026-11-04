@@ -83,9 +83,9 @@ Perry Stone answered all 109 items: 39 OK, 25 changed, 7 unsure, and 38 question
 - the exact bag the contract names is always used.
 
 **Shop practice that differs from the standard.** These are not changed in the tool; the owner needs to decide.
-1. Method 31: "we don't do the seal tests". The tool still says the seal gets leak- and seal-tested.
-2. Methods 32 and 42: "we don't blunt the corners" of the inner box. The tool still says to blunt them.
-3. Labels: our bar code is a linear (store-style) one, not the 2D one in the sample. Check what MIL-STD-129 requires on our contracts before changing anything.
+1. Method 31: "we don't do the seal tests". Owner decision (2026-11-04): we don't need them. The tool now says the seal must be continuous, with no separate leak or seal test.
+2. Methods 32 and 42: "we don't blunt the corners" of the inner box. Owner decision: follow the expert. The tool no longer says to blunt them.
+3. Labels: our bar code is a linear (store-style) one, not the 2D one in the sample. Owner decision: what we do today is assumed OK; the owner is checking MIL-STD-129. The Mark step says our linear labels are what we use.
 
 **His answers conflict.** These need a follow-up question.
 - The question said BL and foil bags (BS, SE, B3, SF, SK) are "on the shelf", but the BL and BS code cards said "we have to buy it (3–4 weeks)". The tool keeps them yellow.

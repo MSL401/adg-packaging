@@ -157,6 +157,14 @@ describe("decode — what the expert review taught us (2026-11-04)", () => {
     expect(label("unitCont")).toContain("MIL-DTL-117, Type I, Class E, Style 1");
     expect(label("specialMarking")).toContain("Apply FRAGILE");
   });
+
+  it("follows shop practice the owner approved: no seal tests, no blunted corners", () => {
+    const r = decode({ codes: { presMthd: "32", unitCont: "BL", packCode: "U" } }, ref);
+    const text = JSON.stringify(r.recipe);
+    expect(text).not.toMatch(/Blunt the box corners|corners blunted/);
+    expect(text).not.toMatch(/seal-tested|leak-tested/);
+    expect(r.recipe.steps.find((s) => s.title.startsWith("Bag it"))?.warnings?.join(" ")).toContain("no separate leak or seal test");
+  });
 });
 
 describe("decode — every historical contract block (golden sweep)", () => {

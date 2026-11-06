@@ -212,10 +212,10 @@ describe("decode — expert review round 2 (2026-11-04)", () => {
 
   it("marking follows how we actually label: contract description, VSM label, stenciled skids", () => {
     const mark = decode({ codes: { presMthd: "10", unitCont: "E5", packCode: "U" } }, ref).recipe.steps.find((s) => s.title === "Mark it")!;
+    expect(mark.detail).not.toMatch(/gross weight/i); // owner: left off for now (2026-11-05)
     expect(mark.warnings?.[0]).toContain("exactly as the contract shows it");
     expect(mark.detail).toContain("Vendor Shipment Module (VSM)");
     expect(mark.detail).toContain("stencil each one in paint");
-    expect(mark.detail).toContain("we don't mark it today");
   });
 });
 

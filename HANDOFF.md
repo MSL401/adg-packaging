@@ -250,6 +250,6 @@ Read the contract number from the PDF text instead.
 - R7: no photos after all. Use the guide diagrams for now and take our own photos eventually.
 
 Open from round 2:
-- **Gross weight (owner decision):** MIL-STD-129 and both guides require it on exterior containers, and the shop never marks it. The app shows the requirement with a "we don't mark it today" note.
+- **Gross weight (owner to confirm):** MIL-STD-129 and both guides require it on exterior containers, and the shop never marks it. On 2026-11-05 the owner said to leave it off for now and that they will confirm, so the "Mark it" step no longer mentions it (Rev 0.4.1). If the answer is to mark it, add the line back to the ID label list in `appendCommon` in `src/lib/decoder/recipe.ts`.
 - Take our own photos (BL bag, ED box, star box, labeled unit pack, finished pallet) and add them under the guide pictures.
 

@@ -512,7 +512,6 @@ export function buildRecipe(p: ParsedPackaging, dict: Dictionary): Recipe {
         "• Contract number (the 13-character PIID)\n" +
         `• Preservation method and date, e.g. M${/^\d\d$/.test(m) ? m : "41"} 11/26\n` +
         "• Serial number, and shelf-life dates, only if they apply\n" +
-        "• Gross weight on the shipping container (MIL-STD-129 requires it; we don't mark it today)\n" +
         "How we make them: the item ID labels come from our label software (part number, NSN, description, and a 2D bar code at the bottom). " +
         "Linear (Code 39) or 2D bar codes both meet MIL-STD-129; 2D is required when the item has a UII.\n" +
         "Shipping container: print the Military Shipping Label (MSL) from DLA's Vendor Shipment Module (VSM).\n" +
